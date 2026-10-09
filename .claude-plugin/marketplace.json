@@ -1,0 +1,5 @@
+{
+  "name": "noordster",
+  "owner": { "name": "Sam Hoven" },
+  "plugins": [ { "name": "noordster", "source": "./", "description": "Noordster: één cockpit voor al je domeinen." } ]
+}
