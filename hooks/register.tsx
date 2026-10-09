@@ -54,6 +54,18 @@ export const register: Register = on => {
     }
   })
 
+  on('ui.render', { component: 'Spinner' }, ($, e, next) =>
+    next({ ...e, props: { ...e.props, message: '★ Noordster werkt', suffix: '…' } }),
+  )
+
+  on('ui.render', { component: 'AssistantMessage' }, ($, e, next) =>
+    next(e.props.isFirstOfReply ? { ...e, props: { ...e.props, text: '★ ' + e.props.text } } : e),
+  )
+
+  on('ui.render', { component: 'UserMessage' }, ($, e, next) =>
+    next({ ...e, props: { ...e.props, text: '▍' + e.props.text } }),
+  )
+
   on('ui.render', { component: 'AbovePrompt' }, async ($, e, next) => {
     if (e.props.hasSurvey || (await read($, hidden))) return next(e)
     const { Box, Text } = $.ui.resolve(e)
