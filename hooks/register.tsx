@@ -19,7 +19,6 @@ export const register: Register = on => {
   on('session.start', async ($, e, next) => {
     await $.command.register({ name: 'noordster', description: 'Open de Noordster-cockpit (of: /noordster focus <tekst>)' })
     $.ui.status('★ Noordster · €10.000/maand')
-    void $.ui.open({ id: PANE, title: '★ Noordster' })
     return next(e)
   })
 
@@ -60,9 +59,11 @@ export const register: Register = on => {
     const { Box, Text } = $.ui.resolve(e)
     const f = await read($, focus)
     return (
-      <Box flexDirection="column">
-        <Text color="yellow">★ Noordster · €10.000/maand</Text>
-        <Text dimColor>Focus vandaag: {f}</Text>
+      <Box flexDirection="column" borderStyle="round" borderColor="yellow" paddingX={1}>
+        <Text color="yellow" bold>★ NOORDSTER  ·  €10.000 / maand</Text>
+        <Text>Focus vandaag: <Text color="cyan">{f}</Text></Text>
+        <Text dimColor>◆ Inkomen  ◆ Lichaam  ◆ Voeding  ◆ Leren  ◆ Leven  ◆ Fiscaal  ◆ Systeem</Text>
+        <Text dimColor>/noordster focus &lt;actie&gt;  ·  /noordster verberg</Text>
       </Box>
     )
   })
