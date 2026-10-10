@@ -1,40 +1,46 @@
-# Noordster
+# Noordster — Mission Control OS
 
-Noordster is Sam Hoven's mission-control operating system: a single place for income, health, learning, money, ongoing priorities, and life balance.
+Noordster is a personal operating system for Sam Hoven: one place to drive income, body strength, learning, life balance, and system clarity.
 
-## Current phase
+## What it is
 
-This repository is now in a richer interactive build phase. The project has evolved from a static concept into a more realistic mission dashboard with:
+A **command-center dashboard** that replaces scattered tools with one coherent interface:
 
-- live, sector-driven overview cards
-- contextual mission summaries
-- a stronger operating-system feel instead of a single mock landing page
-- an interactive navigation model across the main life pillars
+- **Five life pillars**: Income, Body, Mind, Life, System
+- **Live mission context**: Each domain has its own vision, goals, and team
+- **Real-time workflow**: Progress tracking, agent coordination, priority alignment
+- **Approval gate**: Explicit human control before external actions (email, calendar, API)
+- **Low noise, high clarity**: Minimal alerts, maximum intentional action
 
-## Open it locally
+## Open it
 
 ```bash
 python3 -m http.server 8000
 ```
 
-Then open:
+Then visit: `http://localhost:8000/cockpit/index.html`
 
-```text
-http://localhost:8000/cockpit/index.html
-```
+## Phase 2: Interactive Mission Dashboard
 
-## Product direction
+The cockpit is now a **working command center**, not a static visual:
 
-Noordster is designed as a premium command center for Sam's life:
+- Click each domain to see contextual mission, goals, priorities, and agents
+- View live approval gate for actions awaiting human decision
+- System status at a glance (energy, focus, money, balance)
+- Agent team shows who's working on what
 
-- Work / business / income
-- Body / training / recovery
-- Learning / skill growth
-- Life / friendships / experiences
-- Systems / admin / clarity
+## Architecture
 
-The goal is not to be a generic AI chat app. It is a decision-rich life OS that feels calm, controlled, and alive.
+- **Frontend**: Single-page app, vanilla JS, responsive grid layout
+- **State**: Sector-driven configuration with live switching
+- **Design**: Dark luxury + mission control + calm neon accents
+- **Interaction**: Minimal but intentional—approval-based actions
 
-## Status
+## Next steps (Phase 3)
 
-Phase 2: interactive mission dashboard is underway and the core experience is now much closer to a real operating system than a static mock.
+- Integrate with real data sources (Google Calendar, Gmail, financial APIs)
+- Add richer agent panels with individual task queues
+- Build a proper workflow engine
+- Add persistent storage and history
+- Implement real approval gate with backend
+- Add notifications (only for critical decisions)

@@ -3,28 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Noordster — Mission Control</title>
+    <title>Noordster — Mission Control OS</title>
     <style>
       :root {
-        --bg: #070b17;
-        --bg-2: #0d1427;
-        --panel: rgba(17, 23, 38, 0.92);
-        --panel-strong: rgba(26, 31, 48, 1);
-        --line: rgba(170, 184, 255, 0.14);
-        --line-strong: rgba(170, 184, 255, 0.26);
-        --text: #edf2ff;
-        --muted: #a4afd0;
-        --faint: #7f88af;
+        --bg: #050810;
+        --bg-2: #0a0d1a;
+        --panel: rgba(14, 18, 32, 0.92);
+        --panel-strong: rgba(20, 25, 42, 1);
+        --line: rgba(170, 184, 255, 0.12);
+        --line-strong: rgba(170, 184, 255, 0.24);
+        --text: #eef2ff;
+        --text-dim: #aab4d0;
+        --faint: #7f89af;
         --gold: #f0c77a;
-        --gold-soft: rgba(240, 199, 122, 0.18);
+        --gold-soft: rgba(240, 199, 122, 0.14);
         --income: #ff9a5a;
         --body: #4fe3c8;
         --mind: #9f8cff;
         --life: #ff7fc3;
         --sys: #7ad4ff;
         --ok: #65d39e;
-        --warn: #f7b367;
+        --warn: #ffa947;
         --bad: #ff7d7d;
+        --pending: #f0c77a;
+        --shadow: rgba(0, 0, 0, 0.45);
       }
 
       * { box-sizing: border-box; }
@@ -33,146 +35,133 @@
         margin: 0;
         min-height: 100%;
         background:
-          radial-gradient(circle at top, rgba(126, 141, 255, 0.14), transparent 30%),
-          radial-gradient(circle at bottom right, rgba(79, 227, 200, 0.08), transparent 22%),
+          radial-gradient(circle at 20% 0%, rgba(126, 141, 255, 0.1), transparent 25%),
+          radial-gradient(circle at 100% 100%, rgba(79, 227, 200, 0.06), transparent 30%),
           var(--bg);
         color: var(--text);
-        font-family: Inter, "Segoe UI", sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+        line-height: 1.55;
       }
 
-      body { min-height: 100vh; padding: 24px; }
+      body { min-height: 100vh; padding: 0; }
 
       .app {
-        max-width: 1560px;
-        margin: 0 auto;
-        min-height: calc(100vh - 48px);
-        background: rgba(8, 13, 23, 0.86);
-        border: 1px solid var(--line);
-        border-radius: 24px;
-        overflow: hidden;
-        box-shadow: 0 35px 80px rgba(0, 0, 0, 0.45);
+        display: grid;
+        grid-template-columns: 280px minmax(0, 1fr) 420px;
+        grid-template-rows: 68px minmax(0, 1fr) minmax(120px, 16%);
+        height: 100vh;
+        background: var(--bg-2);
       }
 
+      /* === TOPBAR === */
       .topbar {
+        grid-column: 1 / -1;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 20px;
-        padding: 18px 24px;
+        padding: 16px 22px;
         border-bottom: 1px solid var(--line);
-        background: rgba(8, 13, 22, 0.9);
+        background: rgba(8, 11, 20, 0.95);
+        backdrop-filter: blur(12px);
       }
 
       .brand {
         display: flex;
         align-items: center;
-        gap: 14px;
+        gap: 12px;
       }
 
       .brand-dot {
-        width: 12px;
-        height: 12px;
+        width: 10px;
+        height: 10px;
         border-radius: 50%;
-        background: radial-gradient(circle, #fff2c6, var(--gold) 42%, #7f581d 100%);
-        box-shadow: 0 0 20px rgba(240, 199, 122, 0.85);
+        background: radial-gradient(circle, #fff8d9, var(--gold) 40%, #7f5620 100%);
+        box-shadow: 0 0 16px rgba(240, 199, 122, 0.88);
       }
 
-      .brand-name {
-        font-size: 0.95rem;
-        letter-spacing: 0.38rem;
+      .brand-text {
+        font-size: 0.9rem;
+        letter-spacing: 0.32rem;
         font-weight: 700;
         text-transform: uppercase;
-      }
-
-      .brand-sub {
-        font-size: 0.68rem;
-        letter-spacing: 0.17rem;
-        text-transform: uppercase;
-        color: var(--muted);
       }
 
       .topbar-center {
         flex: 1;
         display: flex;
         justify-content: center;
-        gap: 12px;
+        gap: 14px;
         flex-wrap: wrap;
       }
 
-      .chip {
-        border: 1px solid var(--line);
-        background: rgba(255,255,255,0.02);
+      .status-light {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
         border-radius: 999px;
-        padding: 8px 12px;
-        color: var(--muted);
+        border: 1px solid var(--line-strong);
+        background: rgba(101, 211, 158, 0.08);
+        color: var(--ok);
         font-size: 0.66rem;
         letter-spacing: 0.13rem;
         text-transform: uppercase;
       }
 
-      .status-pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 8px 12px;
-        border-radius: 999px;
-        border: 1px solid rgba(101, 211, 158, 0.35);
-        background: rgba(101, 211, 158, 0.08);
-        color: var(--ok);
-        font-size: 0.68rem;
-        letter-spacing: 0.14rem;
-        text-transform: uppercase;
-      }
-
-      .status-pill::before {
+      .status-light::before {
         content: "";
-        width: 7px;
-        height: 7px;
+        width: 6px;
+        height: 6px;
         border-radius: 50%;
         background: var(--ok);
-        box-shadow: 0 0 10px rgba(101, 211, 158, 0.9);
+        box-shadow: 0 0 8px rgba(101, 211, 158, 0.85);
       }
 
-      .layout {
+      .topbar-time {
+        color: var(--faint);
+        font-size: 0.75rem;
+        letter-spacing: 0.1rem;
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      /* === SIDEBAR === */
+      .sidebar {
+        grid-row: 2 / 3;
+        background: rgba(8, 11, 20, 0.8);
+        border-right: 1px solid var(--line);
         display: grid;
-        grid-template-columns: 260px minmax(0, 1fr) 360px;
-        min-height: calc(100vh - 130px);
+        grid-template-rows: auto 1fr auto;
+        overflow-y: auto;
       }
 
-      .sidebar, .rightbar {
-        background: rgba(7, 11, 22, 0.8);
-      }
-
-      .rightbar { border-left: 1px solid var(--line); }
-      .sidebar { border-right: 1px solid var(--line); }
-
-      .sidebar-inner, .rightbar-inner {
-        padding: 18px 16px 18px;
+      .sidebar-header {
+        padding: 16px 14px 12px;
       }
 
       .section-label {
-        margin: 8px 8px 10px;
         color: var(--faint);
-        font-size: 0.66rem;
-        letter-spacing: 0.18rem;
+        font-size: 0.64rem;
+        letter-spacing: 0.16rem;
         text-transform: uppercase;
+        margin-bottom: 10px;
       }
 
       .nav-list {
         display: grid;
         gap: 8px;
+        padding: 0 8px 8px;
       }
 
       .nav-item {
         display: grid;
-        grid-template-columns: 38px 1fr auto;
+        grid-template-columns: 40px 1fr auto;
         align-items: center;
-        gap: 12px;
-        width: 100%;
+        gap: 11px;
         background: transparent;
         border: 1px solid transparent;
-        border-radius: 14px;
-        padding: 10px 10px;
+        border-radius: 12px;
+        padding: 9px 9px;
         cursor: pointer;
         color: var(--text);
         text-align: left;
@@ -180,165 +169,175 @@
       }
 
       .nav-item:hover {
-        background: rgba(150, 162, 255, 0.04);
-        border-color: var(--line);
+        background: rgba(150, 162, 255, 0.05);
+        border-color: var(--line-strong);
         transform: translateX(2px);
       }
 
       .nav-item.active {
-        background: rgba(240, 199, 122, 0.06);
-        border-color: rgba(240, 199, 122, 0.25);
+        background: rgba(240, 199, 122, 0.08);
+        border-color: rgba(240, 199, 122, 0.3);
       }
 
-      .nav-glyph {
-        width: 34px;
-        height: 34px;
-        border-radius: 50%;
+      .nav-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
         display: grid;
         place-items: center;
-        font-size: 0.76rem;
+        font-size: 0.74rem;
         font-weight: 700;
       }
 
-      .nav-glyph.income { background: rgba(255, 154, 90, 0.18); color: var(--income); }
-      .nav-glyph.body { background: rgba(79, 227, 200, 0.16); color: var(--body); }
-      .nav-glyph.mind { background: rgba(159, 140, 255, 0.18); color: var(--mind); }
-      .nav-glyph.life { background: rgba(255, 127, 195, 0.18); color: var(--life); }
-      .nav-glyph.sys { background: rgba(122, 212, 255, 0.14); color: var(--sys); }
+      .icon-income { background: rgba(255, 154, 90, 0.16); color: var(--income); }
+      .icon-body { background: rgba(79, 227, 200, 0.14); color: var(--body); }
+      .icon-mind { background: rgba(159, 140, 255, 0.16); color: var(--mind); }
+      .icon-life { background: rgba(255, 127, 195, 0.16); color: var(--life); }
+      .icon-sys { background: rgba(122, 212, 255, 0.12); color: var(--sys); }
 
-      .nav-text { min-width: 0; }
-      .nav-title {
+      .nav-info {
+        min-width: 0;
+      }
+
+      .nav-name {
         display: block;
-        font-size: 0.94rem;
+        font-size: 0.92rem;
         font-weight: 600;
       }
-      .nav-sub {
+
+      .nav-desc {
         display: block;
+        font-size: 0.68rem;
+        color: var(--text-dim);
         margin-top: 2px;
-        font-size: 0.7rem;
-        color: var(--muted);
       }
+
       .nav-score {
         color: var(--gold);
-        font-size: 0.72rem;
+        font-size: 0.7rem;
         font-weight: 700;
       }
 
-      .mini-stack {
+      .sidebar-footer {
+        padding: 12px 14px 16px;
+        border-top: 1px solid var(--line);
         display: grid;
         gap: 10px;
-        margin-top: 18px;
       }
 
-      .mini-card {
+      .mini-stat {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 10px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
         background: rgba(255,255,255,0.02);
-        border: 1px solid var(--line);
-        border-radius: 16px;
-        padding: 12px 12px 10px;
       }
 
-      .mini-title {
+      .mini-stat-label {
         font-size: 0.64rem;
-        letter-spacing: 0.15rem;
+        letter-spacing: 0.12rem;
         text-transform: uppercase;
-        color: var(--muted);
+        color: var(--faint);
       }
 
-      .mini-value {
-        display: block;
-        margin-top: 8px;
-        font-size: 1.5rem;
+      .mini-stat-value {
+        font-size: 1.2rem;
         font-weight: 700;
-        letter-spacing: -0.04em;
+        letter-spacing: -0.03em;
       }
 
+      /* === CENTER STAGE === */
       .stage {
+        grid-row: 2 / 3;
         display: grid;
-        grid-template-rows: auto auto 1fr;
-        gap: 18px;
-        padding: 18px 18px 20px;
+        grid-template-rows: auto 1fr;
+        gap: 16px;
+        padding: 18px 20px 18px;
+        overflow-y: auto;
       }
 
-      .hero {
-        position: relative;
-        border: 1px solid var(--line);
-        border-radius: 22px;
+      .hero-section {
         background:
-          radial-gradient(circle at left top, rgba(240, 199, 122, 0.17), transparent 30%),
-          linear-gradient(180deg, rgba(13, 16, 27, 0.95), rgba(12, 18, 28, 0.94));
-        overflow: hidden;
+          radial-gradient(circle at 0% 0%, rgba(240, 199, 122, 0.12), transparent 30%),
+          linear-gradient(165deg, rgba(16, 20, 36, 0.96), rgba(14, 18, 30, 0.93));
+        border: 1px solid var(--line);
+        border-radius: 20px;
         padding: 24px 26px;
-      }
-
-      .hero::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(120deg, transparent, rgba(255,255,255,0.035), transparent);
-        pointer-events: none;
-      }
-
-      .hero-grid {
-        position: relative;
-        z-index: 1;
         display: grid;
-        grid-template-columns: 1.2fr 0.8fr;
-        gap: 20px;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 24px;
+        align-items: start;
       }
 
-      .mission-kicker {
+      .hero-left {
+        min-width: 0;
+      }
+
+      .mission-tag {
         color: var(--gold);
-        font-size: 0.66rem;
-        letter-spacing: 0.2rem;
+        font-size: 0.65rem;
+        letter-spacing: 0.18rem;
         text-transform: uppercase;
+        margin-bottom: 10px;
       }
 
       h1 {
-        margin: 12px 0 12px;
-        font-size: clamp(2.3rem, 3vw, 4rem);
-        letter-spacing: -0.06em;
-        line-height: 0.95;
+        margin: 0 0 12px;
+        font-size: clamp(1.8rem, 2.5vw, 3.2rem);
+        letter-spacing: -0.05em;
+        line-height: 1.08;
       }
 
-      .subtitle {
+      .hero-text {
         margin: 0;
-        max-width: 720px;
-        color: var(--muted);
+        color: var(--text-dim);
+        font-size: 0.95rem;
         line-height: 1.6;
-        font-size: 1rem;
+        max-width: 650px;
       }
 
-      .quick-actions {
+      .hero-actions {
         display: flex;
-        gap: 10px;
+        gap: 12px;
+        margin-top: 20px;
         flex-wrap: wrap;
-        margin-top: 22px;
       }
 
-      button {
-        cursor: pointer;
-        font: inherit;
-      }
-
-      .primary-btn, .ghost-btn {
-        border-radius: 12px;
+      .btn {
+        border-radius: 10px;
         border: 1px solid transparent;
-        padding: 10px 14px;
+        padding: 10px 16px;
+        cursor: pointer;
         font-weight: 700;
-        letter-spacing: 0.12rem;
+        letter-spacing: 0.1rem;
         text-transform: uppercase;
+        font-size: 0.72rem;
+        transition: all 0.2s ease;
       }
 
-      .primary-btn {
+      .btn-primary {
         background: linear-gradient(135deg, var(--gold), #d39b53);
-        color: #1f150c;
-        box-shadow: 0 10px 24px rgba(240, 199, 122, 0.24);
+        color: #1a1208;
+        box-shadow: 0 10px 24px rgba(240, 199, 122, 0.22);
       }
 
-      .ghost-btn {
+      .btn-primary:hover {
+        box-shadow: 0 12px 32px rgba(240, 199, 122, 0.3);
+        transform: translateY(-2px);
+      }
+
+      .btn-ghost {
         background: rgba(255,255,255,0.02);
         border-color: var(--line-strong);
         color: var(--text);
+      }
+
+      .btn-ghost:hover {
+        background: rgba(255,255,255,0.06);
+        border-color: var(--text-dim);
       }
 
       .hero-metrics {
@@ -346,772 +345,851 @@
         gap: 12px;
       }
 
-      .metric-card {
-        background: rgba(15, 19, 30, 0.82);
+      .metric {
+        background: rgba(16, 20, 34, 0.8);
         border: 1px solid var(--line);
-        border-radius: 16px;
-        padding: 14px 16px;
+        border-radius: 14px;
+        padding: 12px 14px;
       }
 
       .metric-label {
-        color: var(--muted);
-        font-size: 0.66rem;
-        letter-spacing: 0.16rem;
+        color: var(--faint);
+        font-size: 0.64rem;
+        letter-spacing: 0.14rem;
         text-transform: uppercase;
       }
 
       .metric-value {
         display: block;
         margin-top: 8px;
-        font-size: clamp(1.5rem, 2vw, 2.2rem);
+        font-size: 1.8rem;
         font-weight: 700;
-        letter-spacing: -0.06em;
+        letter-spacing: -0.05em;
       }
 
       .metric-trend {
-        margin-top: 8px;
+        margin-top: 6px;
         color: var(--ok);
-        font-size: 0.74rem;
-        font-weight: 600;
+        font-size: 0.7rem;
       }
 
-      .dashboard-grid {
+      .workflow-grid {
         display: grid;
-        grid-template-columns: repeat(2, minmax(300px, 1fr));
-        gap: 18px;
+        grid-template-columns: repeat(2, minmax(320px, 1fr));
+        gap: 16px;
       }
 
-      .panel {
-        background: rgba(16, 20, 34, 0.9);
+      .workflow-card {
+        background: rgba(16, 20, 34, 0.88);
         border: 1px solid var(--line);
-        border-radius: 18px;
+        border-radius: 16px;
         padding: 18px;
+        display: grid;
+        gap: 14px;
       }
 
-      .panel-header {
+      .card-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 12px;
-        margin-bottom: 14px;
+        gap: 10px;
       }
 
-      .panel-title {
-        font-size: 0.74rem;
-        letter-spacing: 0.17rem;
+      .card-title {
+        font-size: 0.72rem;
+        letter-spacing: 0.16rem;
         text-transform: uppercase;
-        color: var(--muted);
+        color: var(--text-dim);
       }
 
-      .panel-badge {
-        border: 1px solid rgba(240, 199, 122, 0.28);
-        background: rgba(240, 199, 122, 0.08);
+      .card-badge {
+        border: 1px solid rgba(240, 199, 122, 0.26);
+        background: rgba(240, 199, 122, 0.06);
         color: var(--gold);
         border-radius: 999px;
-        padding: 5px 10px;
-        font-size: 0.66rem;
-        letter-spacing: 0.12rem;
+        padding: 4px 9px;
+        font-size: 0.64rem;
+        letter-spacing: 0.1rem;
         text-transform: uppercase;
+        white-space: nowrap;
       }
 
-      .goal-line {
+      .progress-list {
         display: grid;
-        gap: 8px;
-        margin-top: 14px;
+        gap: 10px;
       }
 
-      .goal-row {
+      .progress-item {
+        display: grid;
+        gap: 6px;
+      }
+
+      .progress-row {
         display: grid;
         grid-template-columns: 1fr auto auto;
         gap: 10px;
         align-items: center;
+        font-size: 0.9rem;
       }
 
-      .goal-label { font-weight: 600; }
-      .goal-value {
-        color: var(--muted);
-        font-size: 0.72rem;
-      }
-
-      .progress {
+      .progress-bar {
         grid-column: 1 / -1;
-        height: 10px;
+        height: 8px;
+        background: rgba(255,255,255,0.04);
         border: 1px solid var(--line);
-        background: rgba(255,255,255,0.05);
         border-radius: 999px;
         overflow: hidden;
       }
 
-      .progress > span {
+      .progress-bar.gold > span { background: linear-gradient(90deg, var(--gold), var(--income)); }
+      .progress-bar.cyan > span { background: linear-gradient(90deg, #5ac8ff, #8c8dff); }
+      .progress-bar.green > span { background: linear-gradient(90deg, #48d6a5, #83df9a); }
+      .progress-bar.purple > span { background: linear-gradient(90deg, #9a88ff, #d68dff); }
+
+      .progress-bar > span {
         display: block;
         height: 100%;
         border-radius: inherit;
-        background: linear-gradient(90deg, var(--gold), var(--income));
       }
 
-      .progress.green > span { background: linear-gradient(90deg, #48d6a5, #83df9a); }
-      .progress.cyan > span { background: linear-gradient(90deg, #5ac8ff, #8c8dff); }
-      .progress.purple > span { background: linear-gradient(90deg, #9a88ff, #d68dff); }
-
-      .stat-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
-        margin-top: 18px;
-      }
-
-      .stat-box {
-        background: rgba(255,255,255,0.02);
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        padding: 12px;
-      }
-
-      .stat-box strong {
-        display: block;
-        margin-top: 12px;
-        font-size: 1.45rem;
-        letter-spacing: -0.04em;
-      }
-
-      .tag-row {
-        display: flex;
-        gap: 6px;
-        flex-wrap: wrap;
-        margin-top: 14px;
-      }
-
-      .tag {
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        background: rgba(255,255,255,0.02);
-        color: var(--muted);
-        padding: 6px 8px;
-        font-size: 0.66rem;
-        letter-spacing: 0.08rem;
-        text-transform: uppercase;
-      }
-
-      .agent-list {
+      .agents-grid {
         display: grid;
         gap: 10px;
-        margin-top: 14px;
+        margin-top: 12px;
       }
 
-      .agent {
+      .agent-pill {
         display: grid;
-        grid-template-columns: 44px 1fr auto;
+        grid-template-columns: 40px 1fr auto;
         align-items: center;
         gap: 10px;
-        background: rgba(255,255,255,0.02);
+        background: rgba(255,255,255,0.03);
         border: 1px solid var(--line);
-        border-radius: 14px;
-        padding: 10px 10px 10px 8px;
+        border-radius: 12px;
+        padding: 9px 10px;
       }
 
       .agent-avatar {
-        width: 44px;
-        height: 44px;
-        border-radius: 12px;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
         display: grid;
         place-items: center;
         font-weight: 800;
+        font-size: 0.76rem;
         color: #0d1221;
       }
 
-      .avatar-gold { background: linear-gradient(135deg, var(--gold), #be8f52); }
-      .avatar-cyan { background: linear-gradient(135deg, #7ad4ff, #4f9eff); }
-      .avatar-green { background: linear-gradient(135deg, #8ef0b7, #57d28d); }
-      .avatar-violet { background: linear-gradient(135deg, #cab3ff, #8d79ff); }
-      .avatar-pink { background: linear-gradient(135deg, #ffb6d8, #ff7fc3); }
+      .av-gold { background: linear-gradient(135deg, var(--gold), #be8f52); }
+      .av-cyan { background: linear-gradient(135deg, #7ad4ff, #4f9eff); }
+      .av-green { background: linear-gradient(135deg, #8ef0b7, #57d28d); }
+      .av-purple { background: linear-gradient(135deg, #cab3ff, #8d79ff); }
+      .av-pink { background: linear-gradient(135deg, #ffb6d8, #ff7fc3); }
+
+      .agent-info {
+        min-width: 0;
+      }
 
       .agent-name {
         display: block;
+        font-size: 0.88rem;
         font-weight: 700;
       }
 
       .agent-role {
         display: block;
-        margin-top: 2px;
-        color: var(--muted);
-        font-size: 0.72rem;
+        font-size: 0.68rem;
+        color: var(--text-dim);
+        margin-top: 1px;
       }
 
       .agent-status {
-        font-size: 0.66rem;
-        letter-spacing: 0.12rem;
+        font-size: 0.64rem;
+        letter-spacing: 0.1rem;
         text-transform: uppercase;
         color: var(--ok);
       }
 
+      /* === RIGHTBAR === */
+      .rightbar {
+        grid-row: 2 / 3;
+        background: rgba(8, 11, 20, 0.8);
+        border-left: 1px solid var(--line);
+        display: grid;
+        grid-template-rows: 1fr auto;
+        overflow-y: auto;
+      }
+
       .rightbar-inner {
+        padding: 16px 14px;
         display: grid;
-        gap: 16px;
+        gap: 14px;
       }
 
-      .priority-box, .alert-box {
+      .panel-box {
         border: 1px solid var(--line);
-        border-radius: 16px;
+        border-radius: 14px;
         background: rgba(255,255,255,0.02);
-        padding: 14px 14px 10px;
+        padding: 12px 12px 10px;
       }
 
-      .priority-list, .alert-list {
-        list-style: none;
-        padding: 0;
-        margin: 10px 0 0;
-        display: grid;
-        gap: 10px;
+      .panel-label {
+        font-size: 0.66rem;
+        letter-spacing: 0.15rem;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        margin-bottom: 10px;
       }
 
-      .priority-list li, .alert-list li {
+      .priority-item {
         display: grid;
         gap: 4px;
-        border-radius: 12px;
-        background: rgba(255,255,255,0.015);
-        border: 1px solid rgba(255,255,255,0.03);
-        padding: 9px 10px;
-      }
-
-      .priority-title, .alert-title { font-weight: 700; }
-      .priority-meta, .alert-meta { color: var(--muted); font-size: 0.72rem; }
-
-      .priority-list li:nth-child(1) { border-color: rgba(255, 125, 125, 0.2); }
-      .priority-list li:nth-child(2) { border-color: rgba(247, 179, 103, 0.2); }
-      .priority-list li:nth-child(3) { border-color: rgba(101, 211, 158, 0.2); }
-
-      .small-matrix {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-      }
-
-      .mini-box {
-        border-radius: 14px;
-        border: 1px solid var(--line);
+        border-radius: 10px;
         background: rgba(255,255,255,0.02);
-        padding: 10px;
+        border: 1px solid rgba(255,255,255,0.04);
+        padding: 8px 9px;
+        margin-bottom: 8px;
       }
 
-      .mini-box .label {
-        font-size: 0.62rem;
+      .priority-title {
+        font-weight: 700;
+        font-size: 0.88rem;
+      }
+
+      .priority-meta {
+        font-size: 0.66rem;
+        color: var(--text-dim);
+      }
+
+      .stat-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .stat-mini {
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: rgba(255,255,255,0.01);
+        padding: 9px 8px;
+      }
+
+      .stat-label {
+        font-size: 0.6rem;
         letter-spacing: 0.12rem;
         text-transform: uppercase;
-        color: var(--muted);
+        color: var(--faint);
       }
 
-      .mini-box .value {
+      .stat-value {
         display: block;
-        margin-top: 8px;
-        font-size: 1.2rem;
+        margin-top: 6px;
+        font-size: 1.1rem;
         font-weight: 700;
       }
 
-      @media (max-width: 1180px) {
-        .layout { grid-template-columns: 220px 1fr; }
-        .rightbar {
-          grid-column: 1 / -1;
-          border-left: none;
-          border-top: 1px solid var(--line);
+      /* === GATE (APPROVAL) === */
+      .gate {
+        grid-column: 1 / -1;
+        grid-row: 3 / 4;
+        background: rgba(8, 11, 20, 0.95);
+        border-top: 2px solid var(--pending);
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        overflow-x: auto;
+        max-height: 140px;
+      }
+
+      .gate-label {
+        font-size: 0.68rem;
+        letter-spacing: 0.14rem;
+        text-transform: uppercase;
+        color: var(--pending);
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .gate-card {
+        flex: 0 0 auto;
+        background: rgba(240, 199, 122, 0.08);
+        border: 1px solid rgba(240, 199, 122, 0.24);
+        border-radius: 12px;
+        padding: 12px 13px;
+        min-width: 280px;
+        max-width: 320px;
+        display: grid;
+        gap: 8px;
+      }
+
+      .gate-title {
+        font-weight: 700;
+        font-size: 0.88rem;
+      }
+
+      .gate-desc {
+        font-size: 0.7rem;
+        color: var(--text-dim);
+        line-height: 1.4;
+      }
+
+      .gate-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 8px;
+      }
+
+      .gate-btn {
+        flex: 1;
+        border: 1px solid rgba(255,255,255,0.2);
+        background: rgba(255,255,255,0.05);
+        color: var(--text);
+        border-radius: 8px;
+        padding: 6px 8px;
+        cursor: pointer;
+        font-size: 0.64rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        transition: all 0.2s ease;
+      }
+
+      .gate-btn:hover {
+        background: rgba(255,255,255,0.12);
+        border-color: rgba(255,255,255,0.3);
+      }
+
+      .gate-btn.approve {
+        background: var(--ok);
+        color: #0d1221;
+        border-color: var(--ok);
+      }
+
+      .gate-btn.approve:hover {
+        background: #76deb0;
+      }
+
+      /* Scrollbar styling */
+      .sidebar::-webkit-scrollbar,
+      .stage::-webkit-scrollbar,
+      .rightbar::-webkit-scrollbar,
+      .gate::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+
+      .sidebar::-webkit-scrollbar-track,
+      .stage::-webkit-scrollbar-track,
+      .rightbar::-webkit-scrollbar-track,
+      .gate::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .sidebar::-webkit-scrollbar-thumb,
+      .stage::-webkit-scrollbar-thumb,
+      .rightbar::-webkit-scrollbar-thumb,
+      .gate::-webkit-scrollbar-thumb {
+        background: rgba(170, 184, 255, 0.14);
+        border-radius: 3px;
+      }
+
+      @media (max-width: 1400px) {
+        .workflow-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero-section {
+          grid-template-columns: 1fr;
         }
       }
 
-      @media (max-width: 820px) {
-        body { padding: 12px; }
-        .layout { grid-template-columns: 1fr; }
-        .sidebar, .rightbar { border: none; border-bottom: 1px solid var(--line); }
-        .dashboard-grid { grid-template-columns: 1fr; }
-        .hero-grid { grid-template-columns: 1fr; }
-        .topbar { flex-wrap: wrap; justify-content: center; }
+      @media (max-width: 1100px) {
+        .app {
+          grid-template-columns: 200px 1fr;
+        }
+        .rightbar {
+          display: none;
+        }
+      }
+
+      @media (max-width: 800px) {
+        .app {
+          grid-template-columns: 1fr;
+          grid-template-rows: 68px minmax(0, 1fr) auto auto;
+        }
+        .sidebar {
+          grid-row: 2;
+          grid-column: 1;
+          display: flex;
+          flex-direction: row;
+          max-height: none;
+          border-right: none;
+          border-bottom: 1px solid var(--line);
+          overflow-x: auto;
+          overflow-y: hidden;
+        }
+        .sidebar-header {
+          display: none;
+        }
+        .nav-list {
+          flex-direction: row;
+          padding: 0;
+          gap: 6px;
+        }
+        .sidebar-footer {
+          display: none;
+        }
+        .stage {
+          grid-row: 2;
+        }
+        .gate {
+          grid-row: 3;
+        }
       }
     </style>
   </head>
   <body>
     <div class="app">
+      <!-- TOPBAR -->
       <header class="topbar">
         <div class="brand">
           <span class="brand-dot"></span>
-          <div>
-            <div class="brand-name">Noordster</div>
-            <div class="brand-sub">Mission Control</div>
-          </div>
+          <span class="brand-text">Noordster</span>
         </div>
 
         <div class="topbar-center">
-          <span class="chip">Werk</span>
-          <span class="chip">Lichaam</span>
-          <span class="chip">Leren</span>
-          <span class="chip">Leven</span>
+          <div class="status-light">System online</div>
+          <div class="topbar-time" id="currentTime">14:37 UTC</div>
         </div>
-
-        <div id="liveStatus" class="status-pill">Systeem online</div>
       </header>
 
-      <div class="layout">
-        <aside class="sidebar">
-          <div class="sidebar-inner">
-            <div class="section-label">Domeinen</div>
-            <div class="nav-list">
-              <button class="nav-item active" type="button" data-sector="income">
-                <span class="nav-glyph income">€</span>
-                <span class="nav-text">
-                  <span class="nav-title">Inkomen</span>
-                  <span class="nav-sub">Business + werk</span>
-                </span>
-                <span class="nav-score">8.7</span>
-              </button>
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="section-label">Life domains</div>
+        </div>
 
-              <button class="nav-item" type="button" data-sector="body">
-                <span class="nav-glyph body">B</span>
-                <span class="nav-text">
-                  <span class="nav-title">Lichaam</span>
-                  <span class="nav-sub">Kracht + herstel</span>
-                </span>
-                <span class="nav-score">9.1</span>
-              </button>
-
-              <button class="nav-item" type="button" data-sector="mind">
-                <span class="nav-glyph mind">M</span>
-                <span class="nav-text">
-                  <span class="nav-title">Leren</span>
-                  <span class="nav-sub">Skill growth</span>
-                </span>
-                <span class="nav-score">7.8</span>
-              </button>
-
-              <button class="nav-item" type="button" data-sector="life">
-                <span class="nav-glyph life">L</span>
-                <span class="nav-text">
-                  <span class="nav-title">Leven</span>
-                  <span class="nav-sub">Ervaringen</span>
-                </span>
-                <span class="nav-score">8.1</span>
-              </button>
-
-              <button class="nav-item" type="button" data-sector="system">
-                <span class="nav-glyph sys">S</span>
-                <span class="nav-text">
-                  <span class="nav-title">Systeem</span>
-                  <span class="nav-sub">Ordening</span>
-                </span>
-                <span class="nav-score">9.4</span>
-              </button>
+        <div class="nav-list">
+          <button class="nav-item active" type="button" data-sector="income">
+            <div class="nav-icon icon-income">€</div>
+            <div class="nav-info">
+              <span class="nav-name">Income</span>
+              <span class="nav-desc">Work + business</span>
             </div>
+            <span class="nav-score">8.7</span>
+          </button>
 
-            <div class="mini-stack">
-              <div class="mini-card">
-                <div class="mini-title">Doel</div>
-                <span class="mini-value">€10k / maand</span>
+          <button class="nav-item" type="button" data-sector="body">
+            <div class="nav-icon icon-body">💪</div>
+            <div class="nav-info">
+              <span class="nav-name">Body</span>
+              <span class="nav-desc">Strength + recovery</span>
+            </div>
+            <span class="nav-score">9.1</span>
+          </button>
+
+          <button class="nav-item" type="button" data-sector="mind">
+            <div class="nav-icon icon-mind">🧠</div>
+            <div class="nav-info">
+              <span class="nav-name">Mind</span>
+              <span class="nav-desc">Learning + growth</span>
+            </div>
+            <span class="nav-score">7.8</span>
+          </button>
+
+          <button class="nav-item" type="button" data-sector="life">
+            <div class="nav-icon icon-life">❤️</div>
+            <div class="nav-info">
+              <span class="nav-name">Life</span>
+              <span class="nav-desc">People + experience</span>
+            </div>
+            <span class="nav-score">8.1</span>
+          </button>
+
+          <button class="nav-item" type="button" data-sector="system">
+            <div class="nav-icon icon-sys">⚙️</div>
+            <div class="nav-info">
+              <span class="nav-name">System</span>
+              <span class="nav-desc">Order + automation</span>
+            </div>
+            <span class="nav-score">9.4</span>
+          </button>
+        </div>
+
+        <div class="sidebar-footer">
+          <div class="mini-stat">
+            <div class="mini-stat-label">Target</div>
+            <span class="mini-stat-value">€10k/mo</span>
+          </div>
+          <div class="mini-stat">
+            <div class="mini-stat-label">Focus</div>
+            <span class="mini-stat-value" id="focusBadge">Income build</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- CENTER STAGE -->
+      <main class="stage">
+        <section class="hero-section">
+          <div class="hero-left">
+            <div class="mission-tag" id="missionTag">Mission / Income</div>
+            <h1 id="heroTitle">Money + Freedom Together</h1>
+            <p class="hero-text" id="heroText">
+              Build income streams that scale without chaos. The goal isn't hustle—it's financial freedom with calm execution.
+            </p>
+            <div class="hero-actions">
+              <button id="startDay" class="btn btn-primary">Start my day</button>
+              <button id="agentsBtn" class="btn btn-ghost">View agents</button>
+            </div>
+          </div>
+
+          <div class="hero-metrics">
+            <div class="metric">
+              <div class="metric-label">Monthly target</div>
+              <span class="metric-value" id="targetValue">€8.340</span>
+              <div class="metric-trend" id="targetTrend">+€1.460 vs last week</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Revenue streams</div>
+              <span class="metric-value" id="streamsValue">3 active</span>
+              <div class="metric-trend" id="streamsTrend">All on track</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="workflow-grid">
+          <article class="workflow-card">
+            <div class="card-header">
+              <div class="card-title" id="cardTitle">Work progress</div>
+              <div class="card-badge" id="cardBadge">Income</div>
+            </div>
+            <div class="progress-list" id="progressList"></div>
+          </article>
+
+          <article class="workflow-card">
+            <div class="card-header">
+              <div class="card-title">Agent team</div>
+              <div class="card-badge">Live</div>
+            </div>
+            <div class="agents-grid" id="agentGrid"></div>
+          </article>
+        </div>
+      </main>
+
+      <!-- RIGHTBAR -->
+      <aside class="rightbar">
+        <div class="rightbar-inner">
+          <div class="panel-box">
+            <div class="panel-label">Priorities</div>
+            <div id="priorityList"></div>
+          </div>
+
+          <div class="panel-box">
+            <div class="panel-label">System status</div>
+            <div class="stat-row">
+              <div class="stat-mini">
+                <div class="stat-label">Energy</div>
+                <span class="stat-value" id="energyVal">84%</span>
               </div>
-              <div class="mini-card">
-                <div class="mini-title">Focus</div>
-                <span id="focusBadge" class="mini-value">€-opbouw</span>
+              <div class="stat-mini">
+                <div class="stat-label">Focus</div>
+                <span class="stat-value" id="focusVal">78%</span>
+              </div>
+              <div class="stat-mini">
+                <div class="stat-label">Money</div>
+                <span class="stat-value" id="moneyVal">€8.3k</span>
+              </div>
+              <div class="stat-mini">
+                <div class="stat-label">Balance</div>
+                <span class="stat-value" id="balanceVal">8.3</span>
               </div>
             </div>
           </div>
-        </aside>
 
-        <main class="stage">
-          <section class="hero">
-            <div class="hero-grid">
-              <div>
-                <div class="mission-kicker">Noordster / live mission</div>
-                <h1 id="heroTitle">Een leven dat elke dag levend voelt.</h1>
-                <p id="heroText" class="subtitle">
-                  Een systeem voor werk, geld, voeding, training, leren, agenda, mail en notities —
-                  zodat Sam meer van zichzelf wordt en minder van het saaie werk.
-                </p>
-                <div class="quick-actions">
-                  <button id="startDay" class="primary-btn" type="button">Start mijn dag</button>
-                  <button id="agentView" class="ghost-btn" type="button">Bekijk agenten</button>
-                </div>
-              </div>
-
-              <div class="hero-metrics">
-                <div class="metric-card">
-                  <div class="metric-label">Maandelijks doel</div>
-                  <span id="goalValue" class="metric-value">€8.340</span>
-                  <div id="goalTrend" class="metric-trend">+€1.460 v. vorige week</div>
-                </div>
-
-                <div class="metric-card">
-                  <div class="metric-label">Body score</div>
-                  <span id="bodyValue" class="metric-value">86%</span>
-                  <div id="bodyTrend" class="metric-trend">Herstel optimaal</div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="dashboard-grid">
-            <article class="panel">
-              <div class="panel-header">
-                <div id="panelTitle" class="panel-title">Werk en vermogen</div>
-                <div id="panelBadge" class="panel-badge">Inkomen</div>
-              </div>
-
-              <div id="detailBody" class="goal-line"></div>
-
-              <div class="stat-grid">
-                <div class="stat-box">
-                  <div class="metric-label">Streaming</div>
-                  <strong id="streamingValue">€8.34k</strong>
-                </div>
-                <div class="stat-box">
-                  <div class="metric-label">Runway</div>
-                  <strong id="runwayValue">11 mnd</strong>
-                </div>
-              </div>
-            </article>
-
-            <article class="panel">
-              <div class="panel-header">
-                <div class="panel-title">Agent team</div>
-                <div class="panel-badge">Live</div>
-              </div>
-
-              <div id="agentList" class="agent-list"></div>
-            </article>
-          </section>
-        </main>
-
-        <aside class="rightbar">
-          <div class="rightbar-inner">
-            <div class="priority-box">
-              <div class="panel-title">Prioriteiten</div>
-              <ul id="priorityList" class="priority-list"></ul>
-            </div>
-
-            <div class="alert-box">
-              <div class="panel-title">System status</div>
-              <div class="small-matrix" style="margin-top: 12px;">
-                <div class="mini-box">
-                  <div class="label">Energie</div>
-                  <span id="energyValue" class="value">84%</span>
-                </div>
-                <div class="mini-box">
-                  <div class="label">Focus</div>
-                  <span id="focusValue" class="value">78%</span>
-                </div>
-                <div class="mini-box">
-                  <div class="label">Munt</div>
-                  <span id="moneyValue" class="value">€8.34k</span>
-                </div>
-                <div class="mini-box">
-                  <div class="label">Balance</div>
-                  <span id="balanceValue" class="value">8.3</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="alert-box">
-              <div class="panel-title">Opmerkingen</div>
-              <ul id="noteList" class="alert-list"></ul>
-            </div>
+          <div class="panel-box">
+            <div class="panel-label">Principles</div>
+            <div id="principleList"></div>
           </div>
-        </aside>
+        </div>
+      </aside>
+
+      <!-- APPROVAL GATE -->
+      <div class="gate">
+        <span class="gate-label">Approval gate</span>
+        <div class="gate-card">
+          <div class="gate-title">Send proposal to Axon</div>
+          <div class="gate-desc">Email + PDF file, ask for meeting next week.</div>
+          <div class="gate-actions">
+            <button class="gate-btn">Hold</button>
+            <button class="gate-btn approve">Approve</button>
+          </div>
+        </div>
+        <div class="gate-card">
+          <div class="gate-title">Publish Boekhoudbaar update</div>
+          <div class="gate-desc">Deploy v0.18 to production + announce.</div>
+          <div class="gate-actions">
+            <button class="gate-btn">Hold</button>
+            <button class="gate-btn approve">Approve</button>
+          </div>
+        </div>
       </div>
     </div>
 
     <script>
-      const sectorMap = {
+      const sectorConfig = {
         income: {
-          label: 'Inkomen',
-          title: 'Werk en vermogen',
-          badge: 'Inkomen',
-          focus: '€-opbouw',
-          heroTitle: 'Werk dat geld doet, zonder chaos.',
-          heroText: 'De primaire focus is verdienen op een manier die past bij Sam: meer cashflow, minder onrust, meer keuzevrijheid.',
-          goalValue: '€8.340',
-          goalTrend: '+€1.460 v. vorige week',
-          bodyValue: '86%',
-          bodyTrend: 'Herstel optimaal',
+          tag: "Mission / Income",
+          title: "Money + Freedom Together",
+          text: "Build income streams that scale without chaos. The goal isn't hustle—it's financial freedom with calm execution.",
+          target: "€8.340",
+          targetTrend: "+€1.460 vs last week",
+          streams: "3 active",
+          streamsTrend: "All on track",
+          cardTitle: "Work progress",
+          cardBadge: "Income",
+          focus: "Income build",
           goals: [
-            { label: 'Hoven Strategy', value: '€2.600', pct: '36%', width: '36%', tone: '' },
-            { label: 'Boekhoudbaar', value: '€1.100', pct: '20%', width: '20%', tone: '' },
-            { label: 'Voornemende baan', value: '€4.640', pct: '68%', width: '68%', tone: 'green' }
+            { label: "Hoven Strategy", value: "€2.600", pct: "36%", class: "gold" },
+            { label: "Boekhoudbaar", value: "€1.100", pct: "20%", class: "gold" },
+            { label: "Contract work", value: "€4.640", pct: "68%", class: "green" }
           ],
-          streaming: '€8.34k',
-          runway: '11 mnd',
-          priority: [
-            { title: 'Bel Axon', meta: '12:15 · Laatste kans op goed project' },
-            { title: 'Voortgang Boekhoudbaar', meta: 'Vandaag · Focus op beta-feedback' },
-            { title: 'Nieuwe offerte', meta: '19:00 · Werkopdracht verzamelen' }
+          agents: [
+            { name: "Strategist", role: "Planning", av: "av-gold" },
+            { name: "Nomoa", role: "Business", av: "av-cyan" },
+            { name: "Finance", role: "Money flow", av: "av-green" },
+            { name: "Executor", role: "Action", av: "av-purple" }
           ],
-          notes: [
-            { title: 'Autonomie', meta: 'Zonder handwerk waar het kan' },
-            { title: 'Kwaliteit', meta: 'Uitgaan van bron, niet van praat' },
-            { title: 'Cashflow', meta: 'Minder stress, meer keuze' }
+          priorities: [
+            { title: "Call Axon", meta: "12:15 • Last chance on deal" },
+            { title: "Boekhoudbaar update", meta: "Today • Beta feedback" },
+            { title: "Proposal draft", meta: "19:00 • New project" }
+          ],
+          principles: [
+            { title: "Autonomy", meta: "No handwork where it counts" },
+            { title: "Quality", meta: "Source > hype" },
+            { title: "Cashflow", meta: "Less stress, more choice" }
           ]
         },
         body: {
-          label: 'Lichaam',
-          title: 'Lichaam en herstel',
-          badge: 'Bio-Forge',
-          focus: 'Training + herstel',
-          heroTitle: 'Sterke energie is een keuze.',
-          heroText: 'Beste prestaties ontstaan niet uit overdrive, maar uit consistentie in kracht, slaap, voeding en herstel.',
-          goalValue: '€0',
-          goalTrend: 'Gezondheid boven oppervlakkig druk',
-          bodyValue: '92%',
-          bodyTrend: 'Herstel en kracht stabiel',
+          tag: "Mission / Body",
+          title: "Strength is a Choice",
+          text: "Best performance doesn't come from overdrive—it comes from consistency in strength, sleep, nutrition, and recovery.",
+          target: "€0",
+          targetTrend: "Health over surface pressure",
+          streams: "5 trainings",
+          streamsTrend: "On schedule",
+          cardTitle: "Training load",
+          cardBadge: "Bio-Forge",
+          focus: "Training + recovery",
           goals: [
-            { label: 'Bench press', value: '190 → 210', pct: '76%', width: '76%', tone: 'cyan' },
-            { label: 'Body fat', value: '12.4 → 10.0', pct: '63%', width: '63%', tone: 'green' },
-            { label: 'Herstel', value: '94%', pct: 'Optimaal', width: '94%', tone: '' }
+            { label: "Bench press", value: "190 → 210", pct: "76%", class: "cyan" },
+            { label: "Body fat", value: "12.4 → 10.0", pct: "63%", class: "green" },
+            { label: "Recovery", value: "94%", pct: "Optimal", class: "gold" }
           ],
-          streaming: '5 trainings',
-          runway: '4 weken',
-          priority: [
-            { title: 'Krachtblok', meta: '17:30 · Onderlichaam + bovenlichaam' },
-            { title: 'Slaap', meta: '23:00 · Voldoende herstel' },
-            { title: 'Voeding', meta: 'Batch-cooking voor week' }
+          agents: [
+            { name: "Coach", role: "Strength", av: "av-green" },
+            { name: "Physio", role: "Mobility", av: "av-cyan" },
+            { name: "Nutrition", role: "Fueling", av: "av-pink" },
+            { name: "Sleep", role: "Recovery", av: "av-gold" }
           ],
-          notes: [
-            { title: 'Herstel', meta: 'Licht meer rust voor consistente groei' },
-            { title: 'Focus', meta: 'Kracht > achtergrondlawaai' },
-            { title: 'Voeding', meta: 'Kolossale impact op energie' }
+          priorities: [
+            { title: "Strength block", meta: "17:30 • Upper + lower" },
+            { title: "Sleep target", meta: "23:00 • Full recovery" },
+            { title: "Meal prep", meta: "Sunday • Cook for week" }
+          ],
+          principles: [
+            { title: "Consistency", meta: "Small wins compound" },
+            { title: "Intensity", meta: "Quality over quantity" },
+            { title: "Recovery", meta: "Growth happens at rest" }
           ]
         },
         mind: {
-          label: 'Leren',
-          title: 'Leren en groei',
-          badge: 'Mentor',
-          focus: 'Skill compounding',
-          heroTitle: 'Kennis bouwen die het leven beter maakt.',
-          heroText: 'Ontwikkel talenten die zo veel waarde creëren dat de rest van het systeem vanzelf sterker wordt.',
-          goalValue: '4 sessies',
-          goalTrend: '+1 training v. vorige week',
-          bodyValue: '81%',
-          bodyTrend: 'Groeien met focus',
+          tag: "Mission / Mind",
+          title: "Knowledge Compounds",
+          text: "Develop skills that create so much value the entire system gets stronger. Learning is the best ROI.",
+          target: "4 sessions",
+          targetTrend: "+1 training vs last week",
+          streams: "8 hrs / week",
+          streamsTrend: "Deep focus time",
+          cardTitle: "Learning progress",
+          cardBadge: "Mentor",
+          focus: "Skill compounding",
           goals: [
-            { label: 'Verkoop + onderhandeling', value: '54%', pct: 'hoog ROI', width: '54%', tone: 'purple' },
-            { label: 'Gitaar', value: '18%', pct: 'rust', width: '18%', tone: '' },
-            { label: 'Koken', value: '31%', pct: 'stijl', width: '31%', tone: 'cyan' }
+            { label: "Sales + negotiation", value: "54%", pct: "High ROI", class: "purple" },
+            { label: "Guitar", value: "18%", pct: "Build", class: "gold" },
+            { label: "Cooking", value: "31%", pct: "Skill", class: "cyan" }
           ],
-          streaming: '8 h / week',
-          runway: '3 skill-blokken',
-          priority: [
-            { title: 'Verkoop-script', meta: 'Vandaag · herhalen en verbeteren' },
-            { title: 'AI systems', meta: 'Morgen · automatisering opzetten' },
-            { title: 'Research sprint', meta: 'Wekelijks · 90 min focus' }
+          agents: [
+            { name: "Mentor", role: "Direction", av: "av-purple" },
+            { name: "Analyst", role: "Deep dive", av: "av-cyan" },
+            { name: "Practitioner", role: "Apply", av: "av-green" },
+            { name: "Critic", role: "Challenge", av: "av-gold" }
           ],
-          notes: [
-            { title: 'Lezen', meta: 'Meer bron-gericht leren' },
-            { title: 'Praktijk', meta: 'Loop door met actieve uitvoer' },
-            { title: 'Herhaling', meta: 'Herhaal om te laten landen' }
+          priorities: [
+            { title: "Sales script", meta: "Today • Refine & practice" },
+            { title: "AI systems", meta: "Tomorrow • Automate" },
+            { title: "Research sprint", meta: "Weekly • 90 min focus" }
+          ],
+          principles: [
+            { title: "Reading", meta: "More source-driven" },
+            { title: "Practice", meta: "Apply it immediately" },
+            { title: "Teach", meta: "Teaching cements knowledge" }
           ]
         },
         life: {
-          label: 'Leven',
-          title: 'Leven en balans',
-          badge: 'Leven',
-          focus: 'Ervaringen + mensen',
-          heroTitle: 'Leven voelt niet alleen in werk.',
-          heroText: 'Het systeem is niet alleen productief, maar ook menselijk: vrienden, plezier, ruimte en ervaring tellen mee.',
-          goalValue: '12 plannen',
-          goalTrend: 'Ervaringen als versterker',
-          bodyValue: '89%',
-          bodyTrend: 'Sfeervolle balans',
+          tag: "Mission / Life",
+          title: "Life Feels Good",
+          text: "The system is not just productive, it's human. Friends, joy, space, and experience count as success.",
+          target: "12 plans",
+          targetTrend: "Experiences as amplifier",
+          streams: "3 + weekends",
+          streamsTrend: "Quality time",
+          cardTitle: "Connections",
+          cardBadge: "Life",
+          focus: "People + experiences",
           goals: [
-            { label: 'Vrienden', value: '7 connecties', pct: '72%', width: '72%', tone: 'purple' },
-            { label: 'Persoonlijk', value: '4 momenten', pct: '55%', width: '55%', tone: 'green' },
-            { label: 'Vakantie / uitjes', value: '2 open', pct: '40%', width: '40%', tone: '' }
+            { label: "Friends", value: "7 connections", pct: "72%", class: "purple" },
+            { label: "Personal time", value: "4 moments", pct: "55%", class: "green" },
+            { label: "Adventures", value: "2 planned", pct: "40%", class: "gold" }
           ],
-          streaming: '3 planningen',
-          runway: '3 weken',
-          priority: [
-            { title: 'Afspraken met vrienden', meta: 'Vrijdag · een avond gepland' },
-            { title: 'Ritme', meta: 'Weekend beter inrichten' },
-            { title: 'Plezier', meta: 'Eén ervaring per week' }
+          agents: [
+            { name: "Relation", role: "People", av: "av-pink" },
+            { name: "Experience", role: "Joy", av: "av-gold" },
+            { name: "Rhythm", role: "Balance", av: "av-green" },
+            { name: "Mentor", role: "Growth", av: "av-purple" }
           ],
-          notes: [
-            { title: 'Samenleving', meta: 'Naar mensen toe, niet alleen naar output' },
-            { title: 'Rust', meta: 'Leven is ook ruimte' },
-            { title: 'Waarde', meta: 'Plezier maakt de rest beter' }
+          priorities: [
+            { title: "Friend hangout", meta: "Friday • One evening planned" },
+            { title: "Weekend rhythm", meta: "Better structure" },
+            { title: "One experience", meta: "Per week • Real joy" }
+          ],
+          principles: [
+            { title: "Connection", meta: "Toward people, not output" },
+            { title: "Space", meta: "Life is also room to breathe" },
+            { title: "Worth", meta: "Joy makes the rest better" }
           ]
         },
         system: {
-          label: 'Systeem',
-          title: 'Systeem en orde',
-          badge: 'Systeem',
-          focus: 'Proces + helderheid',
-          heroTitle: 'Een systeem dat de zware dingen voor je doet.',
-          heroText: 'Het doel is niet meer tools, maar minder chaos: duidelijke processen, geautoriseerde acties en een rustiger hoofd.',
-          goalValue: '12/14',
-          goalTrend: 'Procesverbetering is live',
-          bodyValue: '94%',
-          bodyTrend: 'Clarity is high',
+          tag: "Mission / System",
+          title: "Order is Peace",
+          text: "The goal is not more tools, but less chaos. Clear processes, authorized actions, a quieter mind.",
+          target: "12/14",
+          targetTrend: "Process improvement live",
+          streams: "Low ops",
+          streamsTrend: "Structure intact",
+          cardTitle: "System health",
+          cardBadge: "System",
+          focus: "Process + clarity",
           goals: [
-            { label: 'Agenda', value: '89%', pct: 'goed', width: '89%', tone: 'cyan' },
-            { label: 'Mail', value: '73%', pct: 'op koers', width: '73%', tone: '' },
-            { label: 'Notities', value: '91%', pct: 'snel', width: '91%', tone: 'green' }
+            { label: "Agenda", value: "89%", pct: "Good", class: "cyan" },
+            { label: "Mail", value: "73%", pct: "On track", class: "gold" },
+            { label: "Notes", value: "91%", pct: "Fast", class: "green" }
           ],
-          streaming: 'Low ops',
-          runway: 'Structuur intact',
-          priority: [
-            { title: 'Admin reset', meta: 'Vandaag · alleen het noodzakelijke' },
-            { title: 'Goedkeuringspoort', meta: 'Alle externe acties gecontroleerd' },
-            { title: 'Backlog cleanup', meta: 'Minder noise, meer richting' }
+          agents: [
+            { name: "Process", role: "Ops", av: "av-cyan" },
+            { name: "Guardian", role: "Risk", av: "av-gold" },
+            { name: "Automation", role: "Flow", av: "av-green" },
+            { name: "Signal", role: "Pace", av: "av-purple" }
           ],
-          notes: [
-            { title: 'Kwaliteit', meta: 'Bron first, geen verzonnen cijfers' },
-            { title: 'Veiligheid', meta: 'Wees expliciet voordat je buiten gaat' },
-            { title: 'Rust', meta: 'Strakke principes, minder stress' }
+          priorities: [
+            { title: "Admin reset", meta: "Today • Only necessary" },
+            { title: "Approval gate", meta: "All external controlled" },
+            { title: "Backlog cleanup", meta: "Less noise, more direction" }
+          ],
+          principles: [
+            { title: "Quality", meta: "Source first, no invented data" },
+            { title: "Safety", meta: "Be explicit before going out" },
+            { title: "Peace", meta: "Tight rules, less stress" }
           ]
         }
       };
 
-      const agentMap = {
-        income: [
-          { name: 'Strategist', role: 'Prioriteit + focus', avatar: 'avatar-gold' },
-          { name: 'Nomoa', role: 'Business engine', avatar: 'avatar-cyan' },
-          { name: 'Coach', role: 'Lichaam + voeding', avatar: 'avatar-green' },
-          { name: 'Mentor', role: 'Leren + talent', avatar: 'avatar-violet' }
-        ],
-        body: [
-          { name: 'Coach', role: 'Kracht + herstel', avatar: 'avatar-green' },
-          { name: 'Fysio', role: 'Mobiliteit', avatar: 'avatar-cyan' },
-          { name: 'Herstel', role: 'Slaap + terugval', avatar: 'avatar-gold' },
-          { name: 'Voeding', role: 'Energie + koken', avatar: 'avatar-pink' }
-        ],
-        mind: [
-          { name: 'Mentor', role: 'Leerverschil', avatar: 'avatar-violet' },
-          { name: 'Analyst', role: 'Verdieping', avatar: 'avatar-cyan' },
-          { name: 'Taal', role: 'Communicatie', avatar: 'avatar-gold' },
-          { name: 'Design', role: 'Gestructureerde groei', avatar: 'avatar-pink' }
-        ],
-        life: [
-          { name: 'Relatie', role: 'Mensen + verbinding', avatar: 'avatar-pink' },
-          { name: 'Experience', role: 'Plezier + balans', avatar: 'avatar-gold' },
-          { name: 'Ritme', role: 'Structuur welbevinden', avatar: 'avatar-green' },
-          { name: 'Mentor', role: 'Persoonlijk doen', avatar: 'avatar-violet' }
-        ],
-        system: [
-          { name: 'Process', role: 'Operaties + orde', avatar: 'avatar-cyan' },
-          { name: 'Guardian', role: 'Risico + goedkeuring', avatar: 'avatar-gold' },
-          { name: 'Ops', role: 'Automatisering', avatar: 'avatar-green' },
-          { name: 'Signal', role: 'Tempo + rust', avatar: 'avatar-violet' }
-        ]
-      };
-
-      const detailBody = document.getElementById('detailBody');
-      const panelTitle = document.getElementById('panelTitle');
-      const panelBadge = document.getElementById('panelBadge');
-      const heroTitle = document.getElementById('heroTitle');
-      const heroText = document.getElementById('heroText');
-      const focusBadge = document.getElementById('focusBadge');
-      const goalValue = document.getElementById('goalValue');
-      const goalTrend = document.getElementById('goalTrend');
-      const bodyValue = document.getElementById('bodyValue');
-      const bodyTrend = document.getElementById('bodyTrend');
-      const streamingValue = document.getElementById('streamingValue');
-      const runwayValue = document.getElementById('runwayValue');
-      const priorityList = document.getElementById('priorityList');
-      const noteList = document.getElementById('noteList');
-      const agentList = document.getElementById('agentList');
-
       function renderGoals(goals) {
-        detailBody.innerHTML = goals.map(item => {
-          const toneClass = item.tone ? ` ${item.tone}` : '';
-          return `
-            <div class="goal-row">
-              <span class="goal-label">${item.label}</span>
-              <span class="goal-value">${item.value}</span>
-              <span class="goal-value">${item.pct}</span>
+        return goals.map(g => `
+          <div class="progress-item">
+            <div class="progress-row">
+              <span>${g.label}</span>
+              <span>${g.value}</span>
+              <span>${g.pct}</span>
             </div>
-            <div class="progress${toneClass}"><span style="width:${item.width}"></span></div>
-          `;
-        }).join('');
-      }
-
-      function renderPriority(items) {
-        priorityList.innerHTML = items.map(item => `
-          <li>
-            <div class="priority-title">${item.title}</div>
-            <div class="priority-meta">${item.meta}</div>
-          </li>
+            <div class="progress-bar ${g.class}"><span style="width:${g.pct === 'Optimal' || g.pct === 'Good' || g.pct === 'Skill' || g.pct === 'High ROI' || g.pct === 'Fast' ? '100' : parseInt(g.pct)}%"></span></div>
+          </div>
         `).join('');
       }
 
-      function renderNotes(items) {
-        noteList.innerHTML = items.map(item => `
-          <li>
-            <div class="alert-title">${item.title}</div>
-            <div class="alert-meta">${item.meta}</div>
-          </li>
-        `).join('');
-      }
-
-      function renderAgents(items) {
-        agentList.innerHTML = items.map(agent => `
-          <div class="agent">
-            <div class="agent-avatar ${agent.avatar}">${agent.name.slice(0,1)}</div>
-            <div>
-              <span class="agent-name">${agent.name}</span>
-              <span class="agent-role">${agent.role}</span>
+      function renderAgents(agents) {
+        return agents.map(a => `
+          <div class="agent-pill">
+            <div class="agent-avatar ${a.av}">${a.name.charAt(0)}</div>
+            <div class="agent-info">
+              <span class="agent-name">${a.name}</span>
+              <span class="agent-role">${a.role}</span>
             </div>
             <span class="agent-status">Online</span>
           </div>
         `).join('');
       }
 
-      function renderSector(key) {
-        const data = sectorMap[key];
-        if (!data) return;
-
-        panelTitle.textContent = data.title;
-        panelBadge.textContent = data.badge;
-        focusBadge.textContent = data.focus;
-        heroTitle.textContent = data.heroTitle;
-        heroText.textContent = data.heroText;
-        goalValue.textContent = data.goalValue;
-        goalTrend.textContent = data.goalTrend;
-        bodyValue.textContent = data.bodyValue;
-        bodyTrend.textContent = data.bodyTrend;
-        streamingValue.textContent = data.streaming;
-        runwayValue.textContent = data.runway;
-
-        renderGoals(data.goals);
-        renderPriority(data.priority);
-        renderNotes(data.notes);
-        renderAgents(agentMap[key]);
+      function renderPriorities(priorities) {
+        return priorities.map(p => `
+          <div class="priority-item">
+            <div class="priority-title">${p.title}</div>
+            <div class="priority-meta">${p.meta}</div>
+          </div>
+        `).join('');
       }
 
-      const navItems = document.querySelectorAll('.nav-item');
-      navItems.forEach(item => {
+      function renderPrinciples(principles) {
+        return principles.map(pr => `
+          <div class="priority-item">
+            <div class="priority-title">${pr.title}</div>
+            <div class="priority-meta">${pr.meta}</div>
+          </div>
+        `).join('');
+      }
+
+      function updateSector(key) {
+        const config = sectorConfig[key];
+        document.getElementById('missionTag').textContent = config.tag;
+        document.getElementById('heroTitle').textContent = config.title;
+        document.getElementById('heroText').textContent = config.text;
+        document.getElementById('targetValue').textContent = config.target;
+        document.getElementById('targetTrend').textContent = config.targetTrend;
+        document.getElementById('streamsValue').textContent = config.streams;
+        document.getElementById('streamsTrend').textContent = config.streamsTrend;
+        document.getElementById('cardTitle').textContent = config.cardTitle;
+        document.getElementById('cardBadge').textContent = config.cardBadge;
+        document.getElementById('focusBadge').textContent = config.focus;
+        document.getElementById('progressList').innerHTML = renderGoals(config.goals);
+        document.getElementById('agentGrid').innerHTML = renderAgents(config.agents);
+        document.getElementById('priorityList').innerHTML = renderPriorities(config.priorities);
+        document.getElementById('principleList').innerHTML = renderPrinciples(config.principles);
+      }
+
+      // Navigation
+      document.querySelectorAll('.nav-item').forEach(item => {
         item.addEventListener('click', () => {
-          navItems.forEach(n => n.classList.toggle('active', n === item));
-          renderSector(item.dataset.sector);
+          document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('active'));
+          item.classList.add('active');
+          updateSector(item.dataset.sector);
         });
       });
 
-      document.getElementById('startDay').addEventListener('click', () => {
-        const current = document.querySelector('.nav-item.active')?.dataset.sector || 'income';
-        const data = sectorMap[current];
-        heroTitle.textContent = `Vandaag draait ${data.label.toLowerCase()} het hardst.`;
-        heroText.textContent = `Focus: ${data.focus}. Kies één duidelijke actie, maak het af, en laat het systeem de rest minimaliseren.`;
-      });
-
-      document.getElementById('agentView').addEventListener('click', () => {
-        const current = document.querySelector('.nav-item.active')?.dataset.sector || 'income';
-        const data = segmentFor(current);
-        heroTitle.textContent = `Agenten voor ${data.label} zijn live.`;
-      });
-
-      function segmentFor(key) {
-        return sectorMap[key] || sectorMap.income;
-      }
-
+      // Clock
       function updateClock() {
         const now = new Date();
-        const time = now.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' });
-        document.getElementById('liveStatus').textContent = `Systeem online · ${time}`;
+        document.getElementById('currentTime').textContent = now.toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false
+        });
       }
-
-      setInterval(updateClock, 15000);
+      setInterval(updateClock, 1000);
       updateClock();
-      renderSector('income');
+
+      // Initial render
+      updateSector('income');
     </script>
   </body>
 </html>
