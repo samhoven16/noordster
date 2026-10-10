@@ -1,5 +1,7 @@
 # Instructies voor GitHub Copilot in deze repo
 
+**Werk alleen in deze repo (`samhoven16/noordster`).** De repo `nexus-os-elite` wordt niet gebruikt: maak geen nieuwe repo's en push niets daarheen.
+
 Dit is Noordster, het persoonlijke systeem van Sam Hoven. Lees `CLAUDE.md` voor je iets doet; die regels gelden ook voor jou. De belangrijkste:
 
 1. **Nooit direct op `main` pushen.** Maak een branch en een pull request. Sam of Claude Code merget na groene tests.
