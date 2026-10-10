@@ -1,10 +1,25 @@
 {
   "name": "noordster",
+  "version": "0.4.0",
   "private": true,
   "type": "module",
+  "description": "Noordster: Personal mission-control operating system",
   "scripts": {
     "test": "node --test tests/*.test.mjs",
+    "test:state": "node --test tests/state-engine.test.mjs",
     "constanten": "node scripts/constanten-check.mjs",
-    "test:jarvis": "python3 -m unittest discover -s jarvis/tests -t ."
-  }
+    "test:jarvis": "python3 -m unittest discover -s jarvis/tests -t .",
+    "serve": "python3 -m http.server 8000",
+    "dev": "node --watch cockpit/server.mjs"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "personal-os",
+    "mission-control",
+    "state-management",
+    "approval-gate",
+    "integration"
+  ]
 }
