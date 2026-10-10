@@ -157,3 +157,32 @@ test('Bio-Forge zonder Hevy-gegevens zegt dat eerlijk en crasht niet', { skip },
   assert.deepEqual(errors, [])
   await ctx.close()
 })
+
+test('router: kiest per taak het niveau, toont waarom, en telt per dag', { skip }, async () => {
+  const { page, ctx, errors } = await open()
+  async function vraag(tekst) {
+    await page.fill('#msg', tekst); await page.click('#send'); await page.waitForTimeout(700)
+    return page.evaluate(() => window.__opts[window.__opts.length - 1])
+  }
+  assert.equal(await vraag('Energie 7, getraind'), 'quick')
+  assert.equal(await vraag('Welke dag is het vandaag in Utrecht eigenlijk'), 'default') // tools beschikbaar: nooit snel bij agenda-woorden
+  assert.equal(await vraag('Maak een uitgebreid businessplan voor mijn aanbod'), 'complex')
+  const tekst = await page.locator('#thread').innerText()
+  assert.match(tekst, /Snel · dag loggen/)
+  assert.match(tekst, /Zwaar · grote vraag/)
+  assert.match(await page.locator('#routeTally').innerText(), /Vandaag: 1 snel · 1 standaard · 1 zwaar/)
+  assert.deepEqual(errors, [])
+  await ctx.close()
+})
+
+test('router: fiscalist met een analysevraag gaat zwaar, zonder gekozen werker niet', { skip }, async () => {
+  const { page, ctx } = await open()
+  await page.click('#navList .ni >> text=Capital')
+  await page.click('#team .ag >> text=Fiscalist')
+  await page.fill('#msg', 'Analyseer mijn btw-situatie dit kwartaal'); await page.click('#send'); await page.waitForTimeout(700)
+  assert.equal(await page.evaluate(() => window.__opts[window.__opts.length - 1]), 'complex')
+  await page.click('#cfocus')
+  await page.fill('#msg', 'Analyseer mijn btw-situatie dit kwartaal'); await page.click('#send'); await page.waitForTimeout(700)
+  assert.notEqual(await page.evaluate(() => window.__opts[window.__opts.length - 1]), 'complex')
+  await ctx.close()
+})

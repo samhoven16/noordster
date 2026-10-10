@@ -55,7 +55,8 @@ export function initScript(seedData) {
     window.__store = store; window.__calls = []; window.__prompts = []
     const sample = async () => ({ text: '{}' })
     sample.limits = async () => ({ images: null, tools: true })
-    sample.json = async (input) => {
+    sample.json = async (input, opts) => {
+      window.__opts = window.__opts || []; window.__opts.push(opts && opts.modelTier ? opts.modelTier : 'default')
       const arr = Array.isArray(input), first = arr ? input[0].content : String(input), last = arr ? input[input.length - 1].content : String(input)
       window.__calls.push(first.slice(0, 40)); window.__prompts.push(first)
       if (/Je bent de Criticus/.test(first)) return { oordeel: 'goed', reden: 'Past binnen de harde regels (testantwoord).' }
