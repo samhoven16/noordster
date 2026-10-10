@@ -44,3 +44,7 @@ Beperkingen die ik tegenkwam (geen omweg gezocht):
 
 ## 10 okt: Hevy
 Gebouwd: `scripts/hevy.mjs` (alleen GET, paden op een lijst, paginacap 30, niet precies op xx:00, sleutel nooit in foutmeldingen), 9 tests plus 5 mutaties gevangen, Bio-Forge toont `lichaam/hevy` met stagnatie-melding (2 cockpittests, 1 mutatie gevangen). Niet gedaan: echte API-aanroep, want de sleutel staat nog niet als geheim in de omgeving en mag niet in een prompt of bestand. Schrijven naar Hevy bewust niet gebouwd (H-2).
+
+## 10 okt, engineer-ronde 1 (ma-rol QA/data, B-2)
+Gefixt in boekhouding-engine: BTW in de factuurdialog rondde €21,50 × 21% af naar 4,51, de server geeft 4,52. Nu in hele centen half-up, regressietest over 0-4000 euro bij 21%, 9% en 0%, mutatie gevangen, 3189 unit-tests groen. Draft-PR https://github.com/samhoven16/boekhouding-engine/pull/330 (niet gemerged: merge-toestemming geldt alleen voor noordster).
+Wake-ups voor de volgende rondes: 13:47Z en 15:17Z (send_later), plus de bestaande check-ins.
