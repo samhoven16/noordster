@@ -55,3 +55,6 @@ N-8 gemeten: de verzamelingen zijn nog klein (chat 29, bus 2, briefing 1, pipeli
 
 ## 10 okt: profiel van Sam
 Sam plakte zijn volledige profiel. Opgeslagen in de privé-database van de cockpit (`config/profiel`, versie 1), niet in de repo, omdat beide repo's publiek zijn (backlog P-1). Wat al publiek staat: de naam, leeftijd, stad en werkvorm in `CLAUDE.md` en de tekst "Over Sam" in `cockpit/index.html`.
+
+## 10 okt: ronde 3
+U-1 klaar: kaart "Wat is nieuw" op Nexus (db `systeem/nieuw`), artifact v6, 15 cockpit-tests groen, mutatie gevangen. HEVY_API_KEY nog niet gezet; nachtronde 9 staat nog aan.

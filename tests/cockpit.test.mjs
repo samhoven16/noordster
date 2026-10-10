@@ -186,3 +186,17 @@ test('router: fiscalist met een analysevraag gaat zwaar, zonder gekozen werker n
   assert.notEqual(await page.evaluate(() => window.__opts[window.__opts.length - 1]), 'complex')
   await ctx.close()
 })
+
+test('Wat is nieuw: Nexus toont wat er veranderd is uit de database, en niets als er niets is', { skip }, async () => {
+  const nieuw = { items: [{ datum: '2026-10-10', tekst: 'Router kiest Snel, Standaard of Zwaar per vraag' }, { datum: '2026-10-10', tekst: 'Voorbeeldcockpit gemaakt' }] }
+  const { page, ctx, errors } = await open(1440, 900, { 'systeem/nieuw': nieuw })
+  const tekst = await page.locator('#vdWrap').innerText()
+  assert.match(tekst, /wat is nieuw/i)
+  assert.match(tekst, /Router kiest Snel, Standaard of Zwaar per vraag/)
+  assert.match(tekst, /10-10/)
+  assert.deepEqual(errors, [])
+  await ctx.close()
+  const leeg = await open()
+  assert.doesNotMatch(await leeg.page.locator("#vdWrap").innerText(), /wat is nieuw/i)
+  await leeg.ctx.close()
+})

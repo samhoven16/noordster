@@ -414,7 +414,7 @@ var ATLAS=[
  ["training","Training en herstel"],["koken","Voeding en koken"],["gitaar","Gitaar en muziek"],["leren","Leren leren"]
 ];
 var WERKER="trig_018tCG2igLgzhon85xuTD7zK";
-var S={days:{},geld:[],pijp:{},atlas:{},cfg:{bedrag:10000,maat:"omzet"},db:null,sel:"inkomen",sc:{},ctx:"algemeen",menu:null,hevy:null,notes:[],outreach:[],toets:false,mem:[],bouw:[],pipe:[]};
+var S={days:{},geld:[],pijp:{},atlas:{},cfg:{bedrag:10000,maat:"omzet"},db:null,sel:"inkomen",sc:{},ctx:"algemeen",menu:null,hevy:null,nieuw:null,notes:[],outreach:[],toets:false,mem:[],bouw:[],pipe:[]};
 S.menuHist={};S.view="nexus";S.agent=null;S.bus=[];S.brief={};var SESSION=Date.now();S.compact={tot:0};S.lijst=null;var compBusy=false;
 var M=[],LOCAL={},THUMBS={},UNDO={},DONE={},files=[],busy=false,ctl=null,sampleFn=null,limits=null,CODEBUSY={};
 
@@ -1701,7 +1701,14 @@ function briefCard(){
   if(acts.children.length)box.appendChild(acts);
   return box;
 }
-function renderVandaag(){var w=$("vdWrap");w.textContent="";var bc=briefCard();if(bc)w.appendChild(bc);w.appendChild(vandaag())}
+/* Wat is nieuw: wat de engineer veranderde, zodat Sam het effect ziet zonder te vragen. Bron: db systeem/nieuw {items:[{datum,tekst}]}, geschreven door Claude Code. */
+function nieuwCard(){
+  var n=S.nieuw,it=n&&Array.isArray(n.items)?n.items.slice(0,6):[];if(!it.length)return null;
+  var box=el("section","panel nieuw");box.appendChild(el("div","sec","Wat is nieuw"));
+  var ul=el("ul","list");it.forEach(function(x){x=x||{};var li=el("li");li.appendChild(el("span",null,String(x.tekst||"").slice(0,200)));li.appendChild(el("span","m",String(x.datum||"").slice(5,10)));ul.appendChild(li)});
+  box.appendChild(ul);return box;
+}
+function renderVandaag(){var w=$("vdWrap");w.textContent="";var bc=briefCard();if(bc)w.appendChild(bc);var nc=nieuwCard();if(nc)w.appendChild(nc);w.appendChild(vandaag())}
 function agentStatus(a){
   if(busy&&S.agent===a.id)return "bezig…";
   var l=lastAct(a.cl);return l?"laatste activiteit "+l.slice(8,10)+"-"+l.slice(5,7):"nog geen activiteit";
@@ -1847,6 +1854,7 @@ function boot(){
     db.collection("outreach").orderBy("t","desc").limit(100).onSnapshot(function(s){S.outreach=s.docs.map(function(x){var d=x.data();d.id=x.id;return d});renderStream();renderTiles();refreshRoom()},err);
     db.doc("voeding/boodschappen").onSnapshot(function(s){S.lijst=s.exists?s.data():null;refreshRoom()},err);
     db.collection("menuhist").onSnapshot(function(s){var o={};s.docs.forEach(function(x){o[x.id]=x.data()});S.menuHist=o},err);
+    db.doc("systeem/nieuw").onSnapshot(function(s){S.nieuw=s.exists?s.data():null;if(S.view==="nexus")renderVandaag()},err);
     db.doc("lichaam/hevy").onSnapshot(function(s){S.hevy=s.exists?s.data():null;refreshRoom()},err);
     db.doc("voeding/menu").onSnapshot(function(s){S.menu=s.exists?s.data():null;refreshRoom()},err);
     db.collection("pipeline").orderBy("t","desc").limit(30).onSnapshot(function(s){S.pipe=s.docs.map(function(x){return Object.assign({id:x.id},x.data())});renderGate();renderFeed();renderStream();renderTiles()},err);
