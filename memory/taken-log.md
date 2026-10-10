@@ -52,3 +52,6 @@ Wake-ups voor de volgende rondes: 13:47Z en 15:17Z (send_later), plus de bestaan
 ## 10 okt, engineer-ronde 1b (B-1, N-8)
 B-1 klaar in boekhouding-engine PR 330 (draft): contracttest op alle 10 verzendpunten van de licentieserver, elk met categorie (eigenaar, klant-transactioneel, klant-drip) en reden; drip-afmeldcontrole getest; 2 mutaties gevangen; 3188 unit-tests groen.
 N-8 gemeten: de verzamelingen zijn nog klein (chat 29, bus 2, briefing 1, pipeline 3). Geen code nodig; prioriteit verlaagd.
+
+## 10 okt: profiel van Sam
+Sam plakte zijn volledige profiel. Opgeslagen in de privé-database van de cockpit (`config/profiel`, versie 1), niet in de repo, omdat beide repo's publiek zijn (backlog P-1). Wat al publiek staat: de naam, leeftijd, stad en werkvorm in `CLAUDE.md` en de tekst "Over Sam" in `cockpit/index.html`.
