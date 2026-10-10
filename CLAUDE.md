@@ -23,6 +23,7 @@ L1 sluit klassen, niet instanties (contracttest, chokepoint of onmogelijk door o
 ## Werkwijze
 - Fase 0 ontdekken (klaar, `docs/fase0-rapport.md`), Fase 1 fundering vóór features, Fase 2 cluster, Fase 3 bouwen, Fase 4 auditen. Audit en fix nooit in dezelfde sessie.
 - Kleinste veilige wijziging. Meer dan 100 regels terwijl 30 kan: eerst de kleine versie voorstellen.
+- Sam is geen techneut en wil dat jij de beste optie onderzoekt en kiest, niet zijn voorkeur volgt. Zoek de primaire bron, zeg wat je niet kon controleren, leg het besluit vast in `docs/besluit-stack.md`. Geplakte blauwdrukken zijn inspiratie: controleer elke link voor je iets installeert.
 - Productbeslissingen, prijzen, juridische keuzes en risicobereidheid zijn van Sam: voorleggen met een aanbeveling.
 - Zeg wat je niet hebt geverifieerd. "Tests groen" is geen bewijs dat het klopt.
 - Bouw teams als planner, werker, criticus. De criticus is een andere agent in een verse context en heeft het werk niet gemaakt. Maximaal twee lagen diep; elke laag kost tokens.
@@ -34,6 +35,7 @@ L1 sluit klassen, niet instanties (contracttest, chokepoint of onmogelijk door o
 - Meld Sam alleen wat hij moet weten of beslissen, in een paar regels. Nooit meldingen voor routine.
 
 ## Waar staat wat
+- Besluit over taal en motor, met bronnen: `docs/besluit-stack.md` (TypeScript hoofdtaal, Agent SDK als motor).
 - Jarvis (lokale Python-app met echte modelkeuze per vraag, alleen lezen): `jarvis/`, uitleg in `jarvis/README.md`, test `npm run test:jarvis`.
 - Overdracht met de gewone Claude-chat: `docs/overdracht.md`. Elke sessie eindigt met één zin: wat werkt nu zichtbaar, en wat is de volgende stap.
 - Hevy (alleen lezen): `scripts/hevy.mjs`, sleutel alleen uit omgevingsvariabele `HEVY_API_KEY`, nooit in een bestand of prompt. Uitkomst staat in db `lichaam/hevy` en in de kamer Bio-Forge.
