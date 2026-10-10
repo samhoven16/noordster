@@ -34,6 +34,9 @@ L1 sluit klassen, niet instanties (contracttest, chokepoint of onmogelijk door o
 - Klein, met test, mutatiecheck, aparte Criticus, draft-PR. Zelf mergen of publiceren alleen met Sams expliciete toestemmingsregel; zonder die regel levert de engineer draft-PR's en publiceert de hoofdsessie.
 - Meld Sam alleen wat hij moet weten of beslissen, in een paar regels. Nooit meldingen voor routine.
 
+## Geparkeerd
+- Boekhoudbaar staat geparkeerd (Sam, 10 okt): geen werk in `boekhouding-engine` tot Sam het weer opent. Items staan onderaan `memory/backlog.md`.
+
 ## Waar staat wat
 - Besluit over taal en motor, met bronnen: `docs/besluit-stack.md` (TypeScript hoofdtaal, Agent SDK als motor).
 - Jarvis (lokale Python-app met echte modelkeuze per vraag, alleen lezen): `jarvis/`, uitleg in `jarvis/README.md`, test `npm run test:jarvis`.
