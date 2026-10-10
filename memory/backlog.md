@@ -8,7 +8,6 @@ Rollen per weekdag: ma QA, di beveiliging, wo kosten en snelheid, do UX, vr data
 | hoog | N-2 | Hevy: Sam vernieuwt de sleutel (hij stond in de chat) en zet hem als geheim `HEVY_API_KEY` in de omgeving. Daarna eerste echte run van `node scripts/hevy.mjs` en de uitkomst naar db `lichaam/hevy` (client, analyse en kamer staan klaar en zijn getest met nep-antwoorden; echte API nog niet geprobeerd) | beveiliging | fase0 N-2 |
 | midden | H-2 | Hevy schrijven (routines aanpassen) alleen als voorstel via de poort: Sportwetenschapper stelt voor, Criticus toetst, Sam klikt. Niet gebouwd, `scripts/hevy.mjs` kan bewust alleen lezen | UX | Hevy-opdracht |
 | hoog | B-1 | Mailpoort-contracttest uitbreiden naar `boekhouding-engine/licence-server/` (8 aanroepen, 3 naar klanten) | beveiliging | fase0 B-1 |
-| hoog | B-2 | Factuurdialog: BTW-weergave met integer-centen (`NieuweBoeking.gs:789,795`), regressietest €21,50 × 21% = €4,52 | data | fase0 B-2 |
 | hoog | B-3 | `RUNBOOK.md`: plaatsvervanger "kluis-locatie X" invullen en tweede beheerder (Sam beslist wie) | documentatie | fase0 B-3 |
 | hoog | S-1 | Schaal naar 20.000 klanten: F-SCALE-336/337/338 (guillotine plus cursor), Brevo-limiet, licentieserver als Sheet. Ontwerp eerst | kosten | fase0 §9b |
 | midden | C-2 | Risicolimiet voor Trader vastleggen (Sam kiest; de Risk Manager legt de afweging uit) | data | fase0 |
