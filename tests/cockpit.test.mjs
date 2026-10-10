@@ -11,6 +11,7 @@ const CHROME = process.env.CHROME_PATH || '/opt/pw-browsers/chromium-1194/chrome
 let pw = null
 try { pw = await import(process.env.PLAYWRIGHT_CORE || 'playwright-core') } catch { /* niet beschikbaar */ }
 const kan = !!pw && existsSync(CHROME)
+if (!kan && process.env.BROWSERTESTS_VERPLICHT) throw new Error('Browsertests zijn verplicht maar playwright-core of Chromium ontbreekt')
 const skip = kan ? false : 'playwright-core of Chromium ontbreekt'
 
 const SKELETON = '<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light}body{margin:0}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>'
