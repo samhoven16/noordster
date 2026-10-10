@@ -13,7 +13,7 @@ test('elke voorbeeldregel met een naam of cijfer is als voorbeeld gemarkeerd', (
 })
 
 test('de voorbeeldpagina heeft de VOORBEELD-balk en een andere titel dan de echte cockpit', () => {
-  const echt = readFileSync(new URL('../cockpit/index.html', import.meta.url), 'utf8')
+  const echt = readFileSync(new URL('../nexus/index.html', import.meta.url), 'utf8')
   const demo = demoHtml(echt)
   assert.match(demo, /id="demoBanner"/)
   assert.match(demo, /<title>Noordster Voorbeeld<\/title>/)

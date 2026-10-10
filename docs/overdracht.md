@@ -3,9 +3,9 @@
 Één bron van waarheid. Plak het blok onder "Voor de chat" in de projectinstructies van je Claude-chat, zodat chat en Claude Code hetzelfde weten. Werk dit bestand bij als er iets verandert; de chat kan het niet zelf lezen, jij plakt het.
 
 ## Stand (10 okt 2026)
-- **Eén cockpit: Nexus** (https://claude.ai/artifact/GLRFuueCEuPdSBE95QqucB). De oude cockpit (artifact NGTV5DkK9jyG8Vcsi5SyLV, `cockpit/legacy-v26.html`) is bevroren en alleen terugvalpunt. Er wordt niets meer aan gebouwd.
+- **Eén cockpit: Nexus** (https://claude.ai/artifact/GLRFuueCEuPdSBE95QqucB). De oude cockpit (artifact NGTV5DkK9jyG8Vcsi5SyLV, `nexus/legacy-v26.html`) is bevroren en alleen terugvalpunt. Er wordt niets meer aan gebouwd.
 - **Waar gebouwd wordt: Claude Code**, repo `samhoven16/noordster`, branch `main`. De chat is voor onderzoek, plannen en vragen.
-- **Router**: de cockpit kiest per vraag Snel, Standaard of Zwaar en toont waarom in het antwoord (`routeTask` in `cockpit/index.html`, getest). Zwaar bij grote vragen en bij analyse door Fiscalist, Trader, Risk of Sportwetenschapper; snel bij dag loggen en korte vragen.
+- **Router**: de cockpit kiest per vraag Snel, Standaard of Zwaar en toont waarom in het antwoord (`routeTask` in `nexus/index.html`, getest). Zwaar bij grote vragen en bij analyse door Fiscalist, Trader, Risk of Sportwetenschapper; snel bij dag loggen en korte vragen.
 - **Jarvis v0** (`jarvis/`): lokale Python-app die per vraag een echt model kiest (Haiku, Sonnet of Opus uit `jarvis/modellen.json`). Alleen lezen. Nog niet op Sams laptop gedraaid.
 - **Voorbeeldcockpit** (alles verzonnen, aparte artifact met eigen lege database, nooit je echte gegevens): https://claude.ai/artifact/TWX9uzBSczagm9bemu7AM4. Opnieuw maken: `node scripts/demo.mjs <map>`.
 - **Eén repo: `samhoven16/noordster`.** `nexus-os-elite` (door Copilot aangemaakt) wordt niet gebruikt. Copilot werkt alleen via pull requests (`.github/copilot-instructions.md`).

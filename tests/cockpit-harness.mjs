@@ -1,4 +1,4 @@
-// Testharnas voor de cockpit: laadt cockpit/index.html in een headless browser met een nagebootste
+// Testharnas voor de cockpit: laadt nexus/index.html in een headless browser met een nagebootste
 // window.claude (db, sample, mcp). Dit bewijst opmaak en logica, niet de echte AI of de echte koppelingen.
 import { readFileSync } from 'node:fs'
 
@@ -70,4 +70,4 @@ export function initScript(seedData) {
   }})(${JSON.stringify(seedData)})`
 }
 
-export const html = () => readFileSync(new URL('../cockpit/index.html', import.meta.url), 'utf8')
+export const html = () => readFileSync(new URL('../nexus/index.html', import.meta.url), 'utf8')
