@@ -1,0 +1,6 @@
+{
+  "_uitleg": "Eén plek voor modelnamen en inspanning. Een beter model kiezen is één regel hier.",
+  "quick":   { "model": "claude-haiku-5-5",  "effort": "low",    "naam": "Snel" },
+  "default": { "model": "claude-sonnet-5-5", "effort": "medium", "naam": "Standaard" },
+  "complex": { "model": "claude-opus-5-5",   "effort": "high",   "naam": "Zwaar" }
+}

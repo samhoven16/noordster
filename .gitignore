@@ -1,4 +1,7 @@
-memory/wachtrij.jsonl
-memory/goedkeuringen.json
+*.pyc
+.venv/
+__pycache__/
 memory/NOODSTOP
+memory/goedkeuringen.json
+memory/wachtrij.jsonl
 node_modules/
