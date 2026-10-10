@@ -30,727 +30,119 @@
       }
 
       * { box-sizing: border-box; }
-
-      html, body {
-        margin: 0;
-        min-height: 100%;
-        background:
-          radial-gradient(circle at 20% 0%, rgba(126, 141, 255, 0.1), transparent 25%),
-          radial-gradient(circle at 100% 100%, rgba(79, 227, 200, 0.06), transparent 30%),
-          var(--bg);
-        color: var(--text);
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
-        line-height: 1.55;
-      }
-
+      html, body { margin: 0; min-height: 100%; background: radial-gradient(circle at 20% 0%, rgba(126,141,255,.1), transparent 25%), radial-gradient(circle at 100% 100%, rgba(79,227,200,.06), transparent 30%), var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif; line-height: 1.55; }
       body { min-height: 100vh; padding: 0; }
+      .app { display: grid; grid-template-columns: 280px minmax(0, 1fr) 420px; grid-template-rows: 68px minmax(0, 1fr) minmax(120px, 16%); height: 100vh; background: var(--bg-2); }
+      .topbar { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 16px 22px; border-bottom: 1px solid var(--line); background: rgba(8, 11, 20, 0.95); backdrop-filter: blur(12px); }
+      .brand { display: flex; align-items: center; gap: 12px; }
+      .brand-dot { width: 10px; height: 10px; border-radius: 50%; background: radial-gradient(circle, #fff8d9, var(--gold) 40%, #7f5620 100%); box-shadow: 0 0 16px rgba(240,199,122,.88); }
+      .brand-text { font-size: 0.9rem; letter-spacing: 0.32rem; font-weight: 700; text-transform: uppercase; }
+      .topbar-center { flex: 1; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+      .status-light { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line-strong); background: rgba(101,211,158,.08); color: var(--ok); font-size: 0.66rem; letter-spacing: 0.13rem; text-transform: uppercase; }
+      .status-light::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 8px rgba(101,211,158,.85); }
+      .topbar-time { color: var(--faint); font-size: 0.75rem; letter-spacing: 0.1rem; font-family: "JetBrains Mono", monospace; }
 
-      .app {
-        display: grid;
-        grid-template-columns: 280px minmax(0, 1fr) 420px;
-        grid-template-rows: 68px minmax(0, 1fr) minmax(120px, 16%);
-        height: 100vh;
-        background: var(--bg-2);
-      }
+      .sidebar { grid-row: 2 / 3; background: rgba(8,11,20,.8); border-right: 1px solid var(--line); display: grid; grid-template-rows: auto 1fr auto; overflow-y: auto; }
+      .sidebar-header { padding: 16px 14px 12px; }
+      .section-label { color: var(--faint); font-size: 0.64rem; letter-spacing: 0.16rem; text-transform: uppercase; margin-bottom: 10px; }
+      .nav-list { display: grid; gap: 8px; padding: 0 8px 8px; }
+      .nav-item { display: grid; grid-template-columns: 40px 1fr auto; align-items: center; gap: 11px; background: transparent; border: 1px solid transparent; border-radius: 12px; padding: 9px 9px; cursor: pointer; color: var(--text); text-align: left; transition: all 0.2s ease; }
+      .nav-item:hover { background: rgba(150,162,255,.05); border-color: var(--line-strong); transform: translateX(2px); }
+      .nav-item.active { background: rgba(240,199,122,.08); border-color: rgba(240,199,122,.3); }
+      .nav-icon { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; font-size: 0.74rem; font-weight: 700; }
+      .icon-income { background: rgba(255,154,90,.16); color: var(--income); }
+      .icon-body { background: rgba(79,227,200,.14); color: var(--body); }
+      .icon-mind { background: rgba(159,140,255,.16); color: var(--mind); }
+      .icon-life { background: rgba(255,127,195,.16); color: var(--life); }
+      .icon-sys { background: rgba(122,212,255,.12); color: var(--sys); }
+      .nav-info { min-width: 0; }
+      .nav-name { display: block; font-size: 0.92rem; font-weight: 600; }
+      .nav-desc { display: block; font-size: 0.68rem; color: var(--text-dim); margin-top: 2px; }
+      .nav-score { color: var(--gold); font-size: 0.7rem; font-weight: 700; }
+      .sidebar-footer { padding: 12px 14px 16px; border-top: 1px solid var(--line); display: grid; gap: 10px; }
+      .mini-stat { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px; padding: 10px 10px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,.02); }
+      .mini-stat-label { font-size: 0.64rem; letter-spacing: 0.12rem; text-transform: uppercase; color: var(--faint); }
+      .mini-stat-value { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.03em; }
 
-      /* === TOPBAR === */
-      .topbar {
-        grid-column: 1 / -1;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-        padding: 16px 22px;
-        border-bottom: 1px solid var(--line);
-        background: rgba(8, 11, 20, 0.95);
-        backdrop-filter: blur(12px);
-      }
-
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
-
-      .brand-dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: radial-gradient(circle, #fff8d9, var(--gold) 40%, #7f5620 100%);
-        box-shadow: 0 0 16px rgba(240, 199, 122, 0.88);
-      }
-
-      .brand-text {
-        font-size: 0.9rem;
-        letter-spacing: 0.32rem;
-        font-weight: 700;
-        text-transform: uppercase;
-      }
-
-      .topbar-center {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        gap: 14px;
-        flex-wrap: wrap;
-      }
-
-      .status-light {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 6px 12px;
-        border-radius: 999px;
-        border: 1px solid var(--line-strong);
-        background: rgba(101, 211, 158, 0.08);
-        color: var(--ok);
-        font-size: 0.66rem;
-        letter-spacing: 0.13rem;
-        text-transform: uppercase;
-      }
-
-      .status-light::before {
-        content: "";
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--ok);
-        box-shadow: 0 0 8px rgba(101, 211, 158, 0.85);
-      }
-
-      .topbar-time {
-        color: var(--faint);
-        font-size: 0.75rem;
-        letter-spacing: 0.1rem;
-        font-family: "JetBrains Mono", monospace;
-      }
-
-      /* === SIDEBAR === */
-      .sidebar {
-        grid-row: 2 / 3;
-        background: rgba(8, 11, 20, 0.8);
-        border-right: 1px solid var(--line);
-        display: grid;
-        grid-template-rows: auto 1fr auto;
-        overflow-y: auto;
-      }
-
-      .sidebar-header {
-        padding: 16px 14px 12px;
-      }
-
-      .section-label {
-        color: var(--faint);
-        font-size: 0.64rem;
-        letter-spacing: 0.16rem;
-        text-transform: uppercase;
-        margin-bottom: 10px;
-      }
-
-      .nav-list {
-        display: grid;
-        gap: 8px;
-        padding: 0 8px 8px;
-      }
-
-      .nav-item {
-        display: grid;
-        grid-template-columns: 40px 1fr auto;
-        align-items: center;
-        gap: 11px;
-        background: transparent;
-        border: 1px solid transparent;
-        border-radius: 12px;
-        padding: 9px 9px;
-        cursor: pointer;
-        color: var(--text);
-        text-align: left;
-        transition: all 0.2s ease;
-      }
-
-      .nav-item:hover {
-        background: rgba(150, 162, 255, 0.05);
-        border-color: var(--line-strong);
-        transform: translateX(2px);
-      }
-
-      .nav-item.active {
-        background: rgba(240, 199, 122, 0.08);
-        border-color: rgba(240, 199, 122, 0.3);
-      }
-
-      .nav-icon {
-        width: 36px;
-        height: 36px;
-        border-radius: 10px;
-        display: grid;
-        place-items: center;
-        font-size: 0.74rem;
-        font-weight: 700;
-      }
-
-      .icon-income { background: rgba(255, 154, 90, 0.16); color: var(--income); }
-      .icon-body { background: rgba(79, 227, 200, 0.14); color: var(--body); }
-      .icon-mind { background: rgba(159, 140, 255, 0.16); color: var(--mind); }
-      .icon-life { background: rgba(255, 127, 195, 0.16); color: var(--life); }
-      .icon-sys { background: rgba(122, 212, 255, 0.12); color: var(--sys); }
-
-      .nav-info {
-        min-width: 0;
-      }
-
-      .nav-name {
-        display: block;
-        font-size: 0.92rem;
-        font-weight: 600;
-      }
-
-      .nav-desc {
-        display: block;
-        font-size: 0.68rem;
-        color: var(--text-dim);
-        margin-top: 2px;
-      }
-
-      .nav-score {
-        color: var(--gold);
-        font-size: 0.7rem;
-        font-weight: 700;
-      }
-
-      .sidebar-footer {
-        padding: 12px 14px 16px;
-        border-top: 1px solid var(--line);
-        display: grid;
-        gap: 10px;
-      }
-
-      .mini-stat {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        align-items: center;
-        gap: 10px;
-        padding: 10px 10px;
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        background: rgba(255,255,255,0.02);
-      }
-
-      .mini-stat-label {
-        font-size: 0.64rem;
-        letter-spacing: 0.12rem;
-        text-transform: uppercase;
-        color: var(--faint);
-      }
-
-      .mini-stat-value {
-        font-size: 1.2rem;
-        font-weight: 700;
-        letter-spacing: -0.03em;
-      }
-
-      /* === CENTER STAGE === */
-      .stage {
-        grid-row: 2 / 3;
-        display: grid;
-        grid-template-rows: auto 1fr;
-        gap: 16px;
-        padding: 18px 20px 18px;
-        overflow-y: auto;
-      }
-
-      .hero-section {
-        background:
-          radial-gradient(circle at 0% 0%, rgba(240, 199, 122, 0.12), transparent 30%),
-          linear-gradient(165deg, rgba(16, 20, 36, 0.96), rgba(14, 18, 30, 0.93));
-        border: 1px solid var(--line);
-        border-radius: 20px;
-        padding: 24px 26px;
-        display: grid;
-        grid-template-columns: 1.1fr 0.9fr;
-        gap: 24px;
-        align-items: start;
-      }
-
-      .hero-left {
-        min-width: 0;
-      }
-
-      .mission-tag {
-        color: var(--gold);
-        font-size: 0.65rem;
-        letter-spacing: 0.18rem;
-        text-transform: uppercase;
-        margin-bottom: 10px;
-      }
-
-      h1 {
-        margin: 0 0 12px;
-        font-size: clamp(1.8rem, 2.5vw, 3.2rem);
-        letter-spacing: -0.05em;
-        line-height: 1.08;
-      }
-
-      .hero-text {
-        margin: 0;
-        color: var(--text-dim);
-        font-size: 0.95rem;
-        line-height: 1.6;
-        max-width: 650px;
-      }
-
-      .hero-actions {
-        display: flex;
-        gap: 12px;
-        margin-top: 20px;
-        flex-wrap: wrap;
-      }
-
-      .btn {
-        border-radius: 10px;
-        border: 1px solid transparent;
-        padding: 10px 16px;
-        cursor: pointer;
-        font-weight: 700;
-        letter-spacing: 0.1rem;
-        text-transform: uppercase;
-        font-size: 0.72rem;
-        transition: all 0.2s ease;
-      }
-
-      .btn-primary {
-        background: linear-gradient(135deg, var(--gold), #d39b53);
-        color: #1a1208;
-        box-shadow: 0 10px 24px rgba(240, 199, 122, 0.22);
-      }
-
-      .btn-primary:hover {
-        box-shadow: 0 12px 32px rgba(240, 199, 122, 0.3);
-        transform: translateY(-2px);
-      }
-
-      .btn-ghost {
-        background: rgba(255,255,255,0.02);
-        border-color: var(--line-strong);
-        color: var(--text);
-      }
-
-      .btn-ghost:hover {
-        background: rgba(255,255,255,0.06);
-        border-color: var(--text-dim);
-      }
-
-      .hero-metrics {
-        display: grid;
-        gap: 12px;
-      }
-
-      .metric {
-        background: rgba(16, 20, 34, 0.8);
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        padding: 12px 14px;
-      }
-
-      .metric-label {
-        color: var(--faint);
-        font-size: 0.64rem;
-        letter-spacing: 0.14rem;
-        text-transform: uppercase;
-      }
-
-      .metric-value {
-        display: block;
-        margin-top: 8px;
-        font-size: 1.8rem;
-        font-weight: 700;
-        letter-spacing: -0.05em;
-      }
-
-      .metric-trend {
-        margin-top: 6px;
-        color: var(--ok);
-        font-size: 0.7rem;
-      }
-
-      .workflow-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(320px, 1fr));
-        gap: 16px;
-      }
-
-      .workflow-card {
-        background: rgba(16, 20, 34, 0.88);
-        border: 1px solid var(--line);
-        border-radius: 16px;
-        padding: 18px;
-        display: grid;
-        gap: 14px;
-      }
-
-      .card-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-      }
-
-      .card-title {
-        font-size: 0.72rem;
-        letter-spacing: 0.16rem;
-        text-transform: uppercase;
-        color: var(--text-dim);
-      }
-
-      .card-badge {
-        border: 1px solid rgba(240, 199, 122, 0.26);
-        background: rgba(240, 199, 122, 0.06);
-        color: var(--gold);
-        border-radius: 999px;
-        padding: 4px 9px;
-        font-size: 0.64rem;
-        letter-spacing: 0.1rem;
-        text-transform: uppercase;
-        white-space: nowrap;
-      }
-
-      .progress-list {
-        display: grid;
-        gap: 10px;
-      }
-
-      .progress-item {
-        display: grid;
-        gap: 6px;
-      }
-
-      .progress-row {
-        display: grid;
-        grid-template-columns: 1fr auto auto;
-        gap: 10px;
-        align-items: center;
-        font-size: 0.9rem;
-      }
-
-      .progress-bar {
-        grid-column: 1 / -1;
-        height: 8px;
-        background: rgba(255,255,255,0.04);
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        overflow: hidden;
-      }
-
+      .stage { grid-row: 2 / 3; display: grid; grid-template-rows: auto 1fr; gap: 16px; padding: 18px 20px 18px; overflow-y: auto; }
+      .hero-section { background: radial-gradient(circle at 0% 0%, rgba(240,199,122,.12), transparent 30%), linear-gradient(165deg, rgba(16,20,36,.96), rgba(14,18,30,.93)); border: 1px solid var(--line); border-radius: 20px; padding: 24px 26px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 24px; align-items: start; }
+      .hero-left { min-width: 0; }
+      .mission-tag { color: var(--gold); font-size: 0.65rem; letter-spacing: 0.18rem; text-transform: uppercase; margin-bottom: 10px; }
+      h1 { margin: 0 0 12px; font-size: clamp(1.8rem, 2.5vw, 3.2rem); letter-spacing: -0.05em; line-height: 1.08; }
+      .hero-text { margin: 0; color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; max-width: 650px; }
+      .hero-actions { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+      button { cursor: pointer; font: inherit; }
+      .btn { border-radius: 10px; border: 1px solid transparent; padding: 10px 16px; cursor: pointer; font-weight: 700; letter-spacing: 0.1rem; text-transform: uppercase; font-size: 0.72rem; transition: all 0.2s ease; }
+      .btn-primary { background: linear-gradient(135deg, var(--gold), #d39b53); color: #1a1208; box-shadow: 0 10px 24px rgba(240,199,122,.22); }
+      .btn-primary:hover { box-shadow: 0 12px 32px rgba(240,199,122,.3); transform: translateY(-2px); }
+      .btn-ghost { background: rgba(255,255,255,.02); border-color: var(--line-strong); color: var(--text); }
+      .btn-ghost:hover { background: rgba(255,255,255,.06); border-color: var(--text-dim); }
+      .hero-metrics { display: grid; gap: 12px; }
+      .metric { background: rgba(16,20,34,.8); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+      .metric-label { color: var(--faint); font-size: 0.64rem; letter-spacing: 0.14rem; text-transform: uppercase; }
+      .metric-value { display: block; margin-top: 8px; font-size: 1.8rem; font-weight: 700; letter-spacing: -0.05em; }
+      .metric-trend { margin-top: 6px; color: var(--ok); font-size: 0.7rem; }
+      .workflow-grid { display: grid; grid-template-columns: repeat(2, minmax(320px, 1fr)); gap: 16px; }
+      .workflow-card { background: rgba(16,20,34,.88); border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: grid; gap: 14px; }
+      .card-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+      .card-title { font-size: 0.72rem; letter-spacing: 0.16rem; text-transform: uppercase; color: var(--text-dim); }
+      .card-badge { border: 1px solid rgba(240,199,122,.26); background: rgba(240,199,122,.06); color: var(--gold); border-radius: 999px; padding: 4px 9px; font-size: 0.64rem; letter-spacing: 0.1rem; text-transform: uppercase; white-space: nowrap; }
+      .progress-list { display: grid; gap: 10px; }
+      .progress-item { display: grid; gap: 6px; }
+      .progress-row { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: center; font-size: 0.9rem; }
+      .progress-bar { grid-column: 1 / -1; height: 8px; background: rgba(255,255,255,.04); border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
       .progress-bar.gold > span { background: linear-gradient(90deg, var(--gold), var(--income)); }
       .progress-bar.cyan > span { background: linear-gradient(90deg, #5ac8ff, #8c8dff); }
       .progress-bar.green > span { background: linear-gradient(90deg, #48d6a5, #83df9a); }
       .progress-bar.purple > span { background: linear-gradient(90deg, #9a88ff, #d68dff); }
-
-      .progress-bar > span {
-        display: block;
-        height: 100%;
-        border-radius: inherit;
-      }
-
-      .agents-grid {
-        display: grid;
-        gap: 10px;
-        margin-top: 12px;
-      }
-
-      .agent-pill {
-        display: grid;
-        grid-template-columns: 40px 1fr auto;
-        align-items: center;
-        gap: 10px;
-        background: rgba(255,255,255,0.03);
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        padding: 9px 10px;
-      }
-
-      .agent-avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
-        display: grid;
-        place-items: center;
-        font-weight: 800;
-        font-size: 0.76rem;
-        color: #0d1221;
-      }
-
+      .progress-bar > span { display: block; height: 100%; border-radius: inherit; }
+      .agents-grid { display: grid; gap: 10px; margin-top: 12px; }
+      .agent-pill { display: grid; grid-template-columns: 40px 1fr auto; align-items: center; gap: 10px; background: rgba(255,255,255,.03); border: 1px solid var(--line); border-radius: 12px; padding: 9px 10px; }
+      .agent-avatar { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; font-weight: 800; font-size: 0.76rem; color: #0d1221; }
       .av-gold { background: linear-gradient(135deg, var(--gold), #be8f52); }
       .av-cyan { background: linear-gradient(135deg, #7ad4ff, #4f9eff); }
       .av-green { background: linear-gradient(135deg, #8ef0b7, #57d28d); }
       .av-purple { background: linear-gradient(135deg, #cab3ff, #8d79ff); }
       .av-pink { background: linear-gradient(135deg, #ffb6d8, #ff7fc3); }
+      .agent-info { min-width: 0; }
+      .agent-name { display: block; font-size: 0.88rem; font-weight: 700; }
+      .agent-role { display: block; font-size: 0.68rem; color: var(--text-dim); margin-top: 1px; }
+      .agent-status { font-size: 0.64rem; letter-spacing: 0.1rem; text-transform: uppercase; color: var(--ok); }
 
-      .agent-info {
-        min-width: 0;
-      }
+      .rightbar { grid-row: 2 / 3; background: rgba(8,11,20,.8); border-left: 1px solid var(--line); display: grid; grid-template-rows: 1fr auto; overflow-y: auto; }
+      .rightbar-inner { padding: 16px 14px; display: grid; gap: 14px; }
+      .panel-box { border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,.02); padding: 12px 12px 10px; }
+      .panel-label { font-size: 0.66rem; letter-spacing: 0.15rem; text-transform: uppercase; color: var(--text-dim); margin-bottom: 10px; }
+      .priority-item { display: grid; gap: 4px; border-radius: 10px; background: rgba(255,255,255,.02); border: 1px solid rgba(255,255,255,.04); padding: 8px 9px; margin-bottom: 8px; }
+      .priority-title { font-weight: 700; font-size: 0.88rem; }
+      .priority-meta { font-size: 0.66rem; color: var(--text-dim); }
+      .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+      .stat-mini { border: 1px solid var(--line); border-radius: 10px; background: rgba(255,255,255,.01); padding: 9px 8px; }
+      .stat-label { font-size: 0.6rem; letter-spacing: 0.12rem; text-transform: uppercase; color: var(--faint); }
+      .stat-value { display: block; margin-top: 6px; font-size: 1.1rem; font-weight: 700; }
 
-      .agent-name {
-        display: block;
-        font-size: 0.88rem;
-        font-weight: 700;
-      }
+      .gate { grid-column: 1 / -1; grid-row: 3 / 4; background: rgba(8,11,20,.95); border-top: 2px solid var(--pending); padding: 12px 16px; display: flex; align-items: center; gap: 14px; overflow-x: auto; max-height: 140px; }
+      .gate-label { font-size: 0.68rem; letter-spacing: 0.14rem; text-transform: uppercase; color: var(--pending); font-weight: 700; white-space: nowrap; }
+      .gate-card { flex: 0 0 auto; background: rgba(240,199,122,.08); border: 1px solid rgba(240,199,122,.24); border-radius: 12px; padding: 12px 13px; min-width: 280px; max-width: 320px; display: grid; gap: 8px; }
+      .gate-title { font-weight: 700; font-size: 0.88rem; }
+      .gate-desc { font-size: 0.7rem; color: var(--text-dim); line-height: 1.4; }
+      .gate-actions { display: flex; gap: 8px; margin-top: 8px; }
+      .gate-btn { flex: 1; border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.05); color: var(--text); border-radius: 8px; padding: 6px 8px; cursor: pointer; font-size: 0.64rem; font-weight: 700; text-transform: uppercase; transition: all 0.2s ease; }
+      .gate-btn:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.3); }
+      .gate-btn.approve { background: var(--ok); color: #0d1221; border-color: var(--ok); }
+      .gate-btn.approve:hover { background: #76deb0; }
 
-      .agent-role {
-        display: block;
-        font-size: 0.68rem;
-        color: var(--text-dim);
-        margin-top: 1px;
-      }
+      .sidebar::-webkit-scrollbar, .stage::-webkit-scrollbar, .rightbar::-webkit-scrollbar, .gate::-webkit-scrollbar { width: 6px; height: 6px; }
+      .sidebar::-webkit-scrollbar-track, .stage::-webkit-scrollbar-track, .rightbar::-webkit-scrollbar-track, .gate::-webkit-scrollbar-track { background: transparent; }
+      .sidebar::-webkit-scrollbar-thumb, .stage::-webkit-scrollbar-thumb, .rightbar::-webkit-scrollbar-thumb, .gate::-webkit-scrollbar-thumb { background: rgba(170,184,255,.14); border-radius: 3px; }
 
-      .agent-status {
-        font-size: 0.64rem;
-        letter-spacing: 0.1rem;
-        text-transform: uppercase;
-        color: var(--ok);
-      }
-
-      /* === RIGHTBAR === */
-      .rightbar {
-        grid-row: 2 / 3;
-        background: rgba(8, 11, 20, 0.8);
-        border-left: 1px solid var(--line);
-        display: grid;
-        grid-template-rows: 1fr auto;
-        overflow-y: auto;
-      }
-
-      .rightbar-inner {
-        padding: 16px 14px;
-        display: grid;
-        gap: 14px;
-      }
-
-      .panel-box {
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        background: rgba(255,255,255,0.02);
-        padding: 12px 12px 10px;
-      }
-
-      .panel-label {
-        font-size: 0.66rem;
-        letter-spacing: 0.15rem;
-        text-transform: uppercase;
-        color: var(--text-dim);
-        margin-bottom: 10px;
-      }
-
-      .priority-item {
-        display: grid;
-        gap: 4px;
-        border-radius: 10px;
-        background: rgba(255,255,255,0.02);
-        border: 1px solid rgba(255,255,255,0.04);
-        padding: 8px 9px;
-        margin-bottom: 8px;
-      }
-
-      .priority-title {
-        font-weight: 700;
-        font-size: 0.88rem;
-      }
-
-      .priority-meta {
-        font-size: 0.66rem;
-        color: var(--text-dim);
-      }
-
-      .stat-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        margin-top: 10px;
-      }
-
-      .stat-mini {
-        border: 1px solid var(--line);
-        border-radius: 10px;
-        background: rgba(255,255,255,0.01);
-        padding: 9px 8px;
-      }
-
-      .stat-label {
-        font-size: 0.6rem;
-        letter-spacing: 0.12rem;
-        text-transform: uppercase;
-        color: var(--faint);
-      }
-
-      .stat-value {
-        display: block;
-        margin-top: 6px;
-        font-size: 1.1rem;
-        font-weight: 700;
-      }
-
-      /* === GATE (APPROVAL) === */
-      .gate {
-        grid-column: 1 / -1;
-        grid-row: 3 / 4;
-        background: rgba(8, 11, 20, 0.95);
-        border-top: 2px solid var(--pending);
-        padding: 12px 16px;
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        overflow-x: auto;
-        max-height: 140px;
-      }
-
-      .gate-label {
-        font-size: 0.68rem;
-        letter-spacing: 0.14rem;
-        text-transform: uppercase;
-        color: var(--pending);
-        font-weight: 700;
-        white-space: nowrap;
-      }
-
-      .gate-card {
-        flex: 0 0 auto;
-        background: rgba(240, 199, 122, 0.08);
-        border: 1px solid rgba(240, 199, 122, 0.24);
-        border-radius: 12px;
-        padding: 12px 13px;
-        min-width: 280px;
-        max-width: 320px;
-        display: grid;
-        gap: 8px;
-      }
-
-      .gate-title {
-        font-weight: 700;
-        font-size: 0.88rem;
-      }
-
-      .gate-desc {
-        font-size: 0.7rem;
-        color: var(--text-dim);
-        line-height: 1.4;
-      }
-
-      .gate-actions {
-        display: flex;
-        gap: 8px;
-        margin-top: 8px;
-      }
-
-      .gate-btn {
-        flex: 1;
-        border: 1px solid rgba(255,255,255,0.2);
-        background: rgba(255,255,255,0.05);
-        color: var(--text);
-        border-radius: 8px;
-        padding: 6px 8px;
-        cursor: pointer;
-        font-size: 0.64rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        transition: all 0.2s ease;
-      }
-
-      .gate-btn:hover {
-        background: rgba(255,255,255,0.12);
-        border-color: rgba(255,255,255,0.3);
-      }
-
-      .gate-btn.approve {
-        background: var(--ok);
-        color: #0d1221;
-        border-color: var(--ok);
-      }
-
-      .gate-btn.approve:hover {
-        background: #76deb0;
-      }
-
-      /* Scrollbar styling */
-      .sidebar::-webkit-scrollbar,
-      .stage::-webkit-scrollbar,
-      .rightbar::-webkit-scrollbar,
-      .gate::-webkit-scrollbar {
-        width: 6px;
-        height: 6px;
-      }
-
-      .sidebar::-webkit-scrollbar-track,
-      .stage::-webkit-scrollbar-track,
-      .rightbar::-webkit-scrollbar-track,
-      .gate::-webkit-scrollbar-track {
-        background: transparent;
-      }
-
-      .sidebar::-webkit-scrollbar-thumb,
-      .stage::-webkit-scrollbar-thumb,
-      .rightbar::-webkit-scrollbar-thumb,
-      .gate::-webkit-scrollbar-thumb {
-        background: rgba(170, 184, 255, 0.14);
-        border-radius: 3px;
-      }
-
-      @media (max-width: 1400px) {
-        .workflow-grid {
-          grid-template-columns: 1fr;
-        }
-        .hero-section {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      @media (max-width: 1100px) {
-        .app {
-          grid-template-columns: 200px 1fr;
-        }
-        .rightbar {
-          display: none;
-        }
-      }
-
-      @media (max-width: 800px) {
-        .app {
-          grid-template-columns: 1fr;
-          grid-template-rows: 68px minmax(0, 1fr) auto auto;
-        }
-        .sidebar {
-          grid-row: 2;
-          grid-column: 1;
-          display: flex;
-          flex-direction: row;
-          max-height: none;
-          border-right: none;
-          border-bottom: 1px solid var(--line);
-          overflow-x: auto;
-          overflow-y: hidden;
-        }
-        .sidebar-header {
-          display: none;
-        }
-        .nav-list {
-          flex-direction: row;
-          padding: 0;
-          gap: 6px;
-        }
-        .sidebar-footer {
-          display: none;
-        }
-        .stage {
-          grid-row: 2;
-        }
-        .gate {
-          grid-row: 3;
-        }
-      }
+      @media (max-width: 1400px) { .workflow-grid { grid-template-columns: 1fr; } .hero-section { grid-template-columns: 1fr; } }
+      @media (max-width: 1100px) { .app { grid-template-columns: 200px 1fr; } .rightbar { display: none; } }
+      @media (max-width: 800px) { .app { grid-template-columns: 1fr; grid-template-rows: 68px minmax(0, 1fr) auto auto; } .sidebar { grid-row: 2; grid-column: 1; display: flex; flex-direction: row; max-height: none; border-right: none; border-bottom: 1px solid var(--line); overflow-x: auto; overflow-y: hidden; } .sidebar-header { display: none; } .nav-list { flex-direction: row; padding: 0; gap: 6px; } .sidebar-footer { display: none; } .stage { grid-row: 2; } .gate { grid-row: 3; } }
     </style>
   </head>
   <body>
     <div class="app">
-      <!-- TOPBAR -->
       <header class="topbar">
         <div class="brand">
           <span class="brand-dot"></span>
@@ -759,84 +151,51 @@
 
         <div class="topbar-center">
           <div class="status-light">System online</div>
-          <div class="topbar-time" id="currentTime">14:37 UTC</div>
+          <div class="topbar-time" id="currentTime">00:00:00</div>
         </div>
       </header>
 
-      <!-- SIDEBAR -->
       <aside class="sidebar">
-        <div class="sidebar-header">
-          <div class="section-label">Life domains</div>
-        </div>
-
+        <div class="sidebar-header"><div class="section-label">Life domains</div></div>
         <div class="nav-list">
           <button class="nav-item active" type="button" data-sector="income">
             <div class="nav-icon icon-income">€</div>
-            <div class="nav-info">
-              <span class="nav-name">Income</span>
-              <span class="nav-desc">Work + business</span>
-            </div>
+            <div class="nav-info"><span class="nav-name">Income</span><span class="nav-desc">Work + business</span></div>
             <span class="nav-score">8.7</span>
           </button>
-
           <button class="nav-item" type="button" data-sector="body">
             <div class="nav-icon icon-body">💪</div>
-            <div class="nav-info">
-              <span class="nav-name">Body</span>
-              <span class="nav-desc">Strength + recovery</span>
-            </div>
+            <div class="nav-info"><span class="nav-name">Body</span><span class="nav-desc">Strength + recovery</span></div>
             <span class="nav-score">9.1</span>
           </button>
-
           <button class="nav-item" type="button" data-sector="mind">
             <div class="nav-icon icon-mind">🧠</div>
-            <div class="nav-info">
-              <span class="nav-name">Mind</span>
-              <span class="nav-desc">Learning + growth</span>
-            </div>
+            <div class="nav-info"><span class="nav-name">Mind</span><span class="nav-desc">Learning + growth</span></div>
             <span class="nav-score">7.8</span>
           </button>
-
           <button class="nav-item" type="button" data-sector="life">
             <div class="nav-icon icon-life">❤️</div>
-            <div class="nav-info">
-              <span class="nav-name">Life</span>
-              <span class="nav-desc">People + experience</span>
-            </div>
+            <div class="nav-info"><span class="nav-name">Life</span><span class="nav-desc">People + experience</span></div>
             <span class="nav-score">8.1</span>
           </button>
-
           <button class="nav-item" type="button" data-sector="system">
             <div class="nav-icon icon-sys">⚙️</div>
-            <div class="nav-info">
-              <span class="nav-name">System</span>
-              <span class="nav-desc">Order + automation</span>
-            </div>
+            <div class="nav-info"><span class="nav-name">System</span><span class="nav-desc">Order + automation</span></div>
             <span class="nav-score">9.4</span>
           </button>
         </div>
-
         <div class="sidebar-footer">
-          <div class="mini-stat">
-            <div class="mini-stat-label">Target</div>
-            <span class="mini-stat-value">€10k/mo</span>
-          </div>
-          <div class="mini-stat">
-            <div class="mini-stat-label">Focus</div>
-            <span class="mini-stat-value" id="focusBadge">Income build</span>
-          </div>
+          <div class="mini-stat"><div class="mini-stat-label">Target</div><span class="mini-stat-value">€10k/mo</span></div>
+          <div class="mini-stat"><div class="mini-stat-label">Focus</div><span class="mini-stat-value" id="focusBadge">Income build</span></div>
         </div>
       </aside>
 
-      <!-- CENTER STAGE -->
       <main class="stage">
         <section class="hero-section">
           <div class="hero-left">
             <div class="mission-tag" id="missionTag">Mission / Income</div>
             <h1 id="heroTitle">Money + Freedom Together</h1>
-            <p class="hero-text" id="heroText">
-              Build income streams that scale without chaos. The goal isn't hustle—it's financial freedom with calm execution.
-            </p>
+            <p class="hero-text" id="heroText">Build income streams that scale without chaos. The goal isn't hustle—it's financial freedom with calm execution.</p>
             <div class="hero-actions">
               <button id="startDay" class="btn btn-primary">Start my day</button>
               <button id="agentsBtn" class="btn btn-ghost">View agents</button>
@@ -876,36 +235,21 @@
         </div>
       </main>
 
-      <!-- RIGHTBAR -->
       <aside class="rightbar">
         <div class="rightbar-inner">
           <div class="panel-box">
             <div class="panel-label">Priorities</div>
             <div id="priorityList"></div>
           </div>
-
           <div class="panel-box">
             <div class="panel-label">System status</div>
             <div class="stat-row">
-              <div class="stat-mini">
-                <div class="stat-label">Energy</div>
-                <span class="stat-value" id="energyVal">84%</span>
-              </div>
-              <div class="stat-mini">
-                <div class="stat-label">Focus</div>
-                <span class="stat-value" id="focusVal">78%</span>
-              </div>
-              <div class="stat-mini">
-                <div class="stat-label">Money</div>
-                <span class="stat-value" id="moneyVal">€8.3k</span>
-              </div>
-              <div class="stat-mini">
-                <div class="stat-label">Balance</div>
-                <span class="stat-value" id="balanceVal">8.3</span>
-              </div>
+              <div class="stat-mini"><div class="stat-label">Energy</div><span class="stat-value" id="energyVal">84%</span></div>
+              <div class="stat-mini"><div class="stat-label">Focus</div><span class="stat-value" id="focusVal">78%</span></div>
+              <div class="stat-mini"><div class="stat-label">Money</div><span class="stat-value" id="moneyVal">€8.3k</span></div>
+              <div class="stat-mini"><div class="stat-label">Balance</div><span class="stat-value" id="balanceVal">8.3</span></div>
             </div>
           </div>
-
           <div class="panel-box">
             <div class="panel-label">Principles</div>
             <div id="principleList"></div>
@@ -913,283 +257,202 @@
         </div>
       </aside>
 
-      <!-- APPROVAL GATE -->
       <div class="gate">
         <span class="gate-label">Approval gate</span>
-        <div class="gate-card">
-          <div class="gate-title">Send proposal to Axon</div>
-          <div class="gate-desc">Email + PDF file, ask for meeting next week.</div>
-          <div class="gate-actions">
-            <button class="gate-btn">Hold</button>
-            <button class="gate-btn approve">Approve</button>
-          </div>
-        </div>
-        <div class="gate-card">
-          <div class="gate-title">Publish Boekhoudbaar update</div>
-          <div class="gate-desc">Deploy v0.18 to production + announce.</div>
-          <div class="gate-actions">
-            <button class="gate-btn">Hold</button>
-            <button class="gate-btn approve">Approve</button>
-          </div>
-        </div>
+        <div id="gateList" style="display:flex; gap:14px; align-items:center; width:100%;"></div>
       </div>
     </div>
 
+    <script src="../js/state-engine.js"></script>
+    <script src="../js/integration-layer.js"></script>
+    <script src="../js/action-executor.js"></script>
+
     <script>
-      const sectorConfig = {
-        income: {
-          tag: "Mission / Income",
-          title: "Money + Freedom Together",
-          text: "Build income streams that scale without chaos. The goal isn't hustle—it's financial freedom with calm execution.",
-          target: "€8.340",
-          targetTrend: "+€1.460 vs last week",
-          streams: "3 active",
-          streamsTrend: "All on track",
-          cardTitle: "Work progress",
-          cardBadge: "Income",
-          focus: "Income build",
-          goals: [
-            { label: "Hoven Strategy", value: "€2.600", pct: "36%", class: "gold" },
-            { label: "Boekhoudbaar", value: "€1.100", pct: "20%", class: "gold" },
-            { label: "Contract work", value: "€4.640", pct: "68%", class: "green" }
-          ],
-          agents: [
-            { name: "Strategist", role: "Planning", av: "av-gold" },
-            { name: "Nomoa", role: "Business", av: "av-cyan" },
-            { name: "Finance", role: "Money flow", av: "av-green" },
-            { name: "Executor", role: "Action", av: "av-purple" }
-          ],
-          priorities: [
-            { title: "Call Axon", meta: "12:15 • Last chance on deal" },
-            { title: "Boekhoudbaar update", meta: "Today • Beta feedback" },
-            { title: "Proposal draft", meta: "19:00 • New project" }
-          ],
-          principles: [
-            { title: "Autonomy", meta: "No handwork where it counts" },
-            { title: "Quality", meta: "Source > hype" },
-            { title: "Cashflow", meta: "Less stress, more choice" }
-          ]
-        },
-        body: {
-          tag: "Mission / Body",
-          title: "Strength is a Choice",
-          text: "Best performance doesn't come from overdrive—it comes from consistency in strength, sleep, nutrition, and recovery.",
-          target: "€0",
-          targetTrend: "Health over surface pressure",
-          streams: "5 trainings",
-          streamsTrend: "On schedule",
-          cardTitle: "Training load",
-          cardBadge: "Bio-Forge",
-          focus: "Training + recovery",
-          goals: [
-            { label: "Bench press", value: "190 → 210", pct: "76%", class: "cyan" },
-            { label: "Body fat", value: "12.4 → 10.0", pct: "63%", class: "green" },
-            { label: "Recovery", value: "94%", pct: "Optimal", class: "gold" }
-          ],
-          agents: [
-            { name: "Coach", role: "Strength", av: "av-green" },
-            { name: "Physio", role: "Mobility", av: "av-cyan" },
-            { name: "Nutrition", role: "Fueling", av: "av-pink" },
-            { name: "Sleep", role: "Recovery", av: "av-gold" }
-          ],
-          priorities: [
-            { title: "Strength block", meta: "17:30 • Upper + lower" },
-            { title: "Sleep target", meta: "23:00 • Full recovery" },
-            { title: "Meal prep", meta: "Sunday • Cook for week" }
-          ],
-          principles: [
-            { title: "Consistency", meta: "Small wins compound" },
-            { title: "Intensity", meta: "Quality over quantity" },
-            { title: "Recovery", meta: "Growth happens at rest" }
-          ]
-        },
-        mind: {
-          tag: "Mission / Mind",
-          title: "Knowledge Compounds",
-          text: "Develop skills that create so much value the entire system gets stronger. Learning is the best ROI.",
-          target: "4 sessions",
-          targetTrend: "+1 training vs last week",
-          streams: "8 hrs / week",
-          streamsTrend: "Deep focus time",
-          cardTitle: "Learning progress",
-          cardBadge: "Mentor",
-          focus: "Skill compounding",
-          goals: [
-            { label: "Sales + negotiation", value: "54%", pct: "High ROI", class: "purple" },
-            { label: "Guitar", value: "18%", pct: "Build", class: "gold" },
-            { label: "Cooking", value: "31%", pct: "Skill", class: "cyan" }
-          ],
-          agents: [
-            { name: "Mentor", role: "Direction", av: "av-purple" },
-            { name: "Analyst", role: "Deep dive", av: "av-cyan" },
-            { name: "Practitioner", role: "Apply", av: "av-green" },
-            { name: "Critic", role: "Challenge", av: "av-gold" }
-          ],
-          priorities: [
-            { title: "Sales script", meta: "Today • Refine & practice" },
-            { title: "AI systems", meta: "Tomorrow • Automate" },
-            { title: "Research sprint", meta: "Weekly • 90 min focus" }
-          ],
-          principles: [
-            { title: "Reading", meta: "More source-driven" },
-            { title: "Practice", meta: "Apply it immediately" },
-            { title: "Teach", meta: "Teaching cements knowledge" }
-          ]
-        },
-        life: {
-          tag: "Mission / Life",
-          title: "Life Feels Good",
-          text: "The system is not just productive, it's human. Friends, joy, space, and experience count as success.",
-          target: "12 plans",
-          targetTrend: "Experiences as amplifier",
-          streams: "3 + weekends",
-          streamsTrend: "Quality time",
-          cardTitle: "Connections",
-          cardBadge: "Life",
-          focus: "People + experiences",
-          goals: [
-            { label: "Friends", value: "7 connections", pct: "72%", class: "purple" },
-            { label: "Personal time", value: "4 moments", pct: "55%", class: "green" },
-            { label: "Adventures", value: "2 planned", pct: "40%", class: "gold" }
-          ],
-          agents: [
-            { name: "Relation", role: "People", av: "av-pink" },
-            { name: "Experience", role: "Joy", av: "av-gold" },
-            { name: "Rhythm", role: "Balance", av: "av-green" },
-            { name: "Mentor", role: "Growth", av: "av-purple" }
-          ],
-          priorities: [
-            { title: "Friend hangout", meta: "Friday • One evening planned" },
-            { title: "Weekend rhythm", meta: "Better structure" },
-            { title: "One experience", meta: "Per week • Real joy" }
-          ],
-          principles: [
-            { title: "Connection", meta: "Toward people, not output" },
-            { title: "Space", meta: "Life is also room to breathe" },
-            { title: "Worth", meta: "Joy makes the rest better" }
-          ]
-        },
-        system: {
-          tag: "Mission / System",
-          title: "Order is Peace",
-          text: "The goal is not more tools, but less chaos. Clear processes, authorized actions, a quieter mind.",
-          target: "12/14",
-          targetTrend: "Process improvement live",
-          streams: "Low ops",
-          streamsTrend: "Structure intact",
-          cardTitle: "System health",
-          cardBadge: "System",
-          focus: "Process + clarity",
-          goals: [
-            { label: "Agenda", value: "89%", pct: "Good", class: "cyan" },
-            { label: "Mail", value: "73%", pct: "On track", class: "gold" },
-            { label: "Notes", value: "91%", pct: "Fast", class: "green" }
-          ],
-          agents: [
-            { name: "Process", role: "Ops", av: "av-cyan" },
-            { name: "Guardian", role: "Risk", av: "av-gold" },
-            { name: "Automation", role: "Flow", av: "av-green" },
-            { name: "Signal", role: "Pace", av: "av-purple" }
-          ],
-          priorities: [
-            { title: "Admin reset", meta: "Today • Only necessary" },
-            { title: "Approval gate", meta: "All external controlled" },
-            { title: "Backlog cleanup", meta: "Less noise, more direction" }
-          ],
-          principles: [
-            { title: "Quality", meta: "Source first, no invented data" },
-            { title: "Safety", meta: "Be explicit before going out" },
-            { title: "Peace", meta: "Tight rules, less stress" }
-          ]
-        }
+      const engine = new NoordstersStateEngine();
+      const integration = new NoordstersIntegration(engine);
+      const executor = new ActionExecutor(engine, integration);
+
+      const sectorMeta = {
+        income: { tag: 'Mission / Income', title: 'Money + Freedom Together', text: 'Build income streams that scale without chaos. The goal is not hustle—its financial freedom with calm execution.', focus: 'Income build', target: '€8.340', trend: '+€1.460 vs last week', streamValue: '3 active', streamTrend: 'All on track', cardTitle: 'Work progress', badge: 'Income', priorities: [{ title: 'Call Axon', meta: '12:15 • last chance on deal' }, { title: 'Boekhoudbaar update', meta: 'Today • beta feedback' }, { title: 'Proposal draft', meta: '19:00 • new project' }], principles: [{ title: 'Autonomy', meta: 'No handwork where it counts' }, { title: 'Quality', meta: 'Source > hype' }, { title: 'Cashflow', meta: 'Less stress, more choice' }] },
+        body: { tag: 'Mission / Body', title: 'Strength is a Choice', text: 'Best performance does not come from overdrive—it comes from consistency in strength, sleep, nutrition, and recovery.', focus: 'Training + recovery', target: '€0', trend: 'Health over surface pressure', streamValue: '5 trainings', streamTrend: 'On schedule', cardTitle: 'Training load', badge: 'Bio-Forge', priorities: [{ title: 'Strength block', meta: '17:30 • upper + lower' }, { title: 'Sleep target', meta: '23:00 • full recovery' }, { title: 'Meal prep', meta: 'Sunday • cook for week' }], principles: [{ title: 'Consistency', meta: 'Small wins compound' }, { title: 'Intensity', meta: 'Quality over quantity' }, { title: 'Recovery', meta: 'Growth happens at rest' }] },
+        mind: { tag: 'Mission / Mind', title: 'Knowledge Compounds', text: 'Develop skills that create so much value the entire system becomes stronger. Learning is the best ROI.', focus: 'Skill compounding', target: '4 sessions', trend: '+1 training vs last week', streamValue: '8 hrs / week', streamTrend: 'Deep focus time', cardTitle: 'Learning progress', badge: 'Mentor', priorities: [{ title: 'Sales script', meta: 'Today • refine & practice' }, { title: 'AI systems', meta: 'Tomorrow • automate' }, { title: 'Research sprint', meta: 'Weekly • 90 min focus' }], principles: [{ title: 'Reading', meta: 'More source-driven' }, { title: 'Practice', meta: 'Apply it immediately' }, { title: 'Teach', meta: 'Teaching cements knowledge' }] },
+        life: { tag: 'Mission / Life', title: 'Life Feels Good', text: 'The system is not just productive, it is human. Friends, joy, space, and experience count as success.', focus: 'People + experiences', target: '12 plans', trend: 'Experiences as amplifier', streamValue: '3 + weekends', streamTrend: 'Quality time', cardTitle: 'Connections', badge: 'Life', priorities: [{ title: 'Friend hangout', meta: 'Friday • one evening planned' }, { title: 'Weekend rhythm', meta: 'Better structure' }, { title: 'One experience', meta: 'Per week • real joy' }], principles: [{ title: 'Connection', meta: 'Toward people, not output' }, { title: 'Space', meta: 'Life is also room to breathe' }, { title: 'Worth', meta: 'Joy makes the rest better' }] },
+        system: { tag: 'Mission / System', title: 'Order is Peace', text: 'The goal is not more tools, but less chaos. Clear processes, authorized actions, and a quieter mind.', focus: 'Process + clarity', target: '12/14', trend: 'Process improvement live', streamValue: 'Low ops', streamTrend: 'Structure intact', cardTitle: 'System health', badge: 'System', priorities: [{ title: 'Admin reset', meta: 'Today • only necessary' }, { title: 'Approval gate', meta: 'All external controlled' }, { title: 'Backlog cleanup', meta: 'Less noise, more direction' }], principles: [{ title: 'Quality', meta: 'Source first, no invented data' }, { title: 'Safety', meta: 'Be explicit before going out' }, { title: 'Peace', meta: 'Tight rules, less stress' }] }
       };
 
-      function renderGoals(goals) {
-        return goals.map(g => `
-          <div class="progress-item">
-            <div class="progress-row">
-              <span>${g.label}</span>
-              <span>${g.value}</span>
-              <span>${g.pct}</span>
-            </div>
-            <div class="progress-bar ${g.class}"><span style="width:${g.pct === 'Optimal' || g.pct === 'Good' || g.pct === 'Skill' || g.pct === 'High ROI' || g.pct === 'Fast' ? '100' : parseInt(g.pct)}%"></span></div>
-          </div>
-        `).join('');
+      function clampPercent(raw) {
+        if (typeof raw !== 'number') return 50;
+        return Math.min(100, Math.max(0, raw));
       }
 
-      function renderAgents(agents) {
-        return agents.map(a => `
+      function renderGoals(sectorState) {
+        const list = sectorState.goals || [];
+        return list.map(goal => {
+          const val = typeof goal.value === 'number' && goal.target ? (goal.value / goal.target) * 100 : (typeof goal.value === 'number' ? goal.value : 50);
+          const width = clampPercent(val);
+          const tone = goal.target && goal.value > goal.target ? 'green' : (goal.label.includes('Body') || goal.label.includes('Recovery') ? 'green' : (goal.label.includes('Sales') || goal.label.includes('Friends') ? 'purple' : (goal.label.includes('Agenda') || goal.label.includes('Notes') ? 'cyan' : 'gold')));
+          const pci = goal.target && typeof goal.value === 'number' && typeof goal.target === 'number' ? `${Math.round(width)}%` : `${goal.pct || goal.value || 50}%`;
+          return `
+            <div class="progress-item">
+              <div class="progress-row">
+                <span>${goal.label}</span>
+                <span>${goal.target && typeof goal.value === 'number' ? (goal.value >= 1000 ? '€' + goal.value.toLocaleString() : goal.value) : goal.value}</span>
+                <span>${pci}</span>
+              </div>
+              <div class="progress-bar ${tone}"><span style="width:${width}%"></span></div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      function renderAgents(sectorState) {
+        const list = sectorState.agents || [];
+        const avatars = ['av-gold', 'av-cyan', 'av-green', 'av-purple', 'av-pink'];
+        return list.map((agent, index) => `
           <div class="agent-pill">
-            <div class="agent-avatar ${a.av}">${a.name.charAt(0)}</div>
-            <div class="agent-info">
-              <span class="agent-name">${a.name}</span>
-              <span class="agent-role">${a.role}</span>
+            <div class="agent-avatar ${avatars[index % avatars.length]}">${agent.name.charAt(0)}</div>
+            <div class="agent-info"><span class="agent-name">${agent.name}</span><span class="agent-role">${agent.role}</span></div>
+            <span class="agent-status">${agent.status === 'online' ? 'Online' : (agent.status === 'working' ? 'Working' : 'Idle')}</span>
+          </div>
+        `).join('');
+      }
+
+      function renderPriorityList(sectorKey) {
+        const tasks = engine.getTasksBySector(sectorKey).slice(0, 3);
+        const list = tasks.map(task => `
+          <div class="priority-item">
+            <div class="priority-title">${task.title}</div>
+            <div class="priority-meta">${task.status} • ${new Date(task.due).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+          </div>
+        `);
+        return list.join('');
+      }
+
+      function renderPrinciples(sectorKey) {
+        const meta = sectorMeta[sectorKey] || sectorMeta.income;
+        return meta.principles.map(item => `
+          <div class="priority-item">
+            <div class="priority-title">${item.title}</div>
+            <div class="priority-meta">${item.meta}</div>
+          </div>
+        `).join('');
+      }
+
+      function renderGate() {
+        const approvals = engine.getPendingApprovals();
+        const gate = document.getElementById('gateList');
+        if (!approvals.length) {
+          gate.innerHTML = '<div class="gate-card" style="min-width:240px;"> <div class="gate-title">No pending approvals</div> <div class="gate-desc">Everything is stable and no external actions are waiting for confirmation.</div></div>';
+          return;
+        }
+        gate.innerHTML = approvals.map(approval => `
+          <div class="gate-card" data-approval-id="${approval.id}">
+            <div class="gate-title">${approval.title}</div>
+            <div class="gate-desc">${approval.description}</div>
+            <div class="gate-actions">
+              <button class="gate-btn hold-action" data-approval-id="${approval.id}">Hold</button>
+              <button class="gate-btn approve approve-action" data-approval-id="${approval.id}">Approve</button>
             </div>
-            <span class="agent-status">Online</span>
           </div>
         `).join('');
+
+        document.querySelectorAll('.approve-action').forEach(button => {
+          button.addEventListener('click', async () => {
+            const approvalId = button.dataset.approvalId;
+            const approved = engine.approveAction(approvalId, async (approval) => {
+              const result = await executor.executeApprovedAction(approval.id);
+              console.log('Execution result', result);
+              render();
+            });
+            if (!approved) {
+              console.warn('Approval already handled');
+            }
+          });
+        });
+
+        document.querySelectorAll('.hold-action').forEach(button => {
+          button.addEventListener('click', () => {
+            const approvalId = button.dataset.approvalId;
+            engine.holdAction(approvalId, 'Held by user');
+            render();
+          });
+        });
       }
 
-      function renderPriorities(priorities) {
-        return priorities.map(p => `
-          <div class="priority-item">
-            <div class="priority-title">${p.title}</div>
-            <div class="priority-meta">${p.meta}</div>
-          </div>
-        `).join('');
+      function render() {
+        const state = engine.state;
+        const sectorKey = state.currentSector || 'income';
+        const sector = state.sectors[sectorKey] || state.sectors.income;
+        const meta = sectorMeta[sectorKey] || sectorMeta.income;
+
+        document.getElementById('missionTag').textContent = meta.tag;
+        document.getElementById('heroTitle').textContent = meta.title;
+        document.getElementById('heroText').textContent = meta.text;
+        document.getElementById('targetValue').textContent = meta.target;
+        document.getElementById('targetTrend').textContent = meta.trend;
+        document.getElementById('streamsValue').textContent = meta.streamValue;
+        document.getElementById('streamsTrend').textContent = meta.streamTrend;
+        document.getElementById('cardTitle').textContent = meta.cardTitle;
+        document.getElementById('cardBadge').textContent = meta.badge;
+        document.getElementById('focusBadge').textContent = sector.focus || meta.focus;
+
+        document.getElementById('progressList').innerHTML = renderGoals(sector);
+        document.getElementById('agentGrid').innerHTML = renderAgents(sector);
+        document.getElementById('priorityList').innerHTML = renderPriorityList(sectorKey);
+        document.getElementById('principleList').innerHTML = renderPrinciples(sectorKey);
+
+        const health = state.systemHealth || { energy: 84, focus: 78, money: 8340, balance: 8.3 };
+        document.getElementById('energyVal').textContent = `${health.energy}%`;
+        document.getElementById('focusVal').textContent = `${health.focus}%`;
+        document.getElementById('moneyVal').textContent = `€${(health.money / 1000).toFixed(1)}k`;
+        document.getElementById('balanceVal').textContent = health.balance.toFixed(1);
+
+        renderGate();
+        updateNavSelection(sectorKey);
       }
 
-      function renderPrinciples(principles) {
-        return principles.map(pr => `
-          <div class="priority-item">
-            <div class="priority-title">${pr.title}</div>
-            <div class="priority-meta">${pr.meta}</div>
-          </div>
-        `).join('');
+      function updateNavSelection(sectorKey) {
+        document.querySelectorAll('.nav-item').forEach(button => {
+          button.classList.toggle('active', button.dataset.sector === sectorKey);
+        });
       }
 
-      function updateSector(key) {
-        const config = sectorConfig[key];
-        document.getElementById('missionTag').textContent = config.tag;
-        document.getElementById('heroTitle').textContent = config.title;
-        document.getElementById('heroText').textContent = config.text;
-        document.getElementById('targetValue').textContent = config.target;
-        document.getElementById('targetTrend').textContent = config.targetTrend;
-        document.getElementById('streamsValue').textContent = config.streams;
-        document.getElementById('streamsTrend').textContent = config.streamsTrend;
-        document.getElementById('cardTitle').textContent = config.cardTitle;
-        document.getElementById('cardBadge').textContent = config.cardBadge;
-        document.getElementById('focusBadge').textContent = config.focus;
-        document.getElementById('progressList').innerHTML = renderGoals(config.goals);
-        document.getElementById('agentGrid').innerHTML = renderAgents(config.agents);
-        document.getElementById('priorityList').innerHTML = renderPriorities(config.priorities);
-        document.getElementById('principleList').innerHTML = renderPrinciples(config.principles);
-      }
-
-      // Navigation
-      document.querySelectorAll('.nav-item').forEach(item => {
-        item.addEventListener('click', () => {
-          document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('active'));
-          item.classList.add('active');
-          updateSector(item.dataset.sector);
+      document.querySelectorAll('.nav-item').forEach(button => {
+        button.addEventListener('click', () => {
+          const sectorKey = button.dataset.sector;
+          engine.state.currentSector = sectorKey;
+          engine.saveState();
+          render();
         });
       });
 
-      // Clock
+      document.getElementById('startDay').addEventListener('click', () => {
+        const sectorKey = engine.state.currentSector || 'income';
+        engine.queueAction({
+          title: `Launch ${sectorMeta[sectorKey].badge} routine`,
+          description: 'Focus the day on the strongest next move for the current domain.',
+          action: 'tasks.create_task',
+          sector: sectorKey,
+          metadata: { name: 'Daily planning', type: 'priority' }
+        });
+        render();
+      });
+
+      document.getElementById('agentsBtn').addEventListener('click', () => {
+        const sectorKey = engine.state.currentSector || 'income';
+        const current = engine.getSector(sectorKey);
+        const agentNames = current.agents.map(a => a.name).join(', ');
+        alert(`Active agents for ${sectorKey}: ${agentNames}`);
+      });
+
       function updateClock() {
         const now = new Date();
-        document.getElementById('currentTime').textContent = now.toLocaleTimeString('en-US', {
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-          hour12: false
-        });
+        document.getElementById('currentTime').textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
       }
       setInterval(updateClock, 1000);
       updateClock();
-
-      // Initial render
-      updateSector('income');
+      render();
+      window.noordsterApp = { engine, integration, executor };
     </script>
   </body>
 </html>
