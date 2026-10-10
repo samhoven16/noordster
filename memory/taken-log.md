@@ -48,3 +48,7 @@ Gebouwd: `scripts/hevy.mjs` (alleen GET, paden op een lijst, paginacap 30, niet 
 ## 10 okt, engineer-ronde 1 (ma-rol QA/data, B-2)
 Gefixt in boekhouding-engine: BTW in de factuurdialog rondde €21,50 × 21% af naar 4,51, de server geeft 4,52. Nu in hele centen half-up, regressietest over 0-4000 euro bij 21%, 9% en 0%, mutatie gevangen, 3189 unit-tests groen. Draft-PR https://github.com/samhoven16/boekhouding-engine/pull/330 (niet gemerged: merge-toestemming geldt alleen voor noordster).
 Wake-ups voor de volgende rondes: 13:47Z en 15:17Z (send_later), plus de bestaande check-ins.
+
+## 10 okt, engineer-ronde 1b (B-1, N-8)
+B-1 klaar in boekhouding-engine PR 330 (draft): contracttest op alle 10 verzendpunten van de licentieserver, elk met categorie (eigenaar, klant-transactioneel, klant-drip) en reden; drip-afmeldcontrole getest; 2 mutaties gevangen; 3188 unit-tests groen.
+N-8 gemeten: de verzamelingen zijn nog klein (chat 29, bus 2, briefing 1, pipeline 3). Geen code nodig; prioriteit verlaagd.
