@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "test": "node --test tests/*.test.mjs",
-    "constanten": "node scripts/constanten-check.mjs"
+    "constanten": "node scripts/constanten-check.mjs",
+    "test:jarvis": "python3 -m unittest discover -s jarvis/tests -t ."
   }
 }

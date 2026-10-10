@@ -34,6 +34,7 @@ L1 sluit klassen, niet instanties (contracttest, chokepoint of onmogelijk door o
 - Meld Sam alleen wat hij moet weten of beslissen, in een paar regels. Nooit meldingen voor routine.
 
 ## Waar staat wat
+- Jarvis (lokale Python-app met echte modelkeuze per vraag, alleen lezen): `jarvis/`, uitleg in `jarvis/README.md`, test `npm run test:jarvis`.
 - Overdracht met de gewone Claude-chat: `docs/overdracht.md`. Elke sessie eindigt met één zin: wat werkt nu zichtbaar, en wat is de volgende stap.
 - Hevy (alleen lezen): `scripts/hevy.mjs`, sleutel alleen uit omgevingsvariabele `HEVY_API_KEY`, nooit in een bestand of prompt. Uitkomst staat in db `lichaam/hevy` en in de kamer Bio-Forge.
 - `memory/constanten.json` bedragen en jaren met bron. `memory/klassen.md` bug-klassen. `docs/` rapporten.
