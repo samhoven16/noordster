@@ -1,0 +1,19 @@
+name: Tests
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-save playwright-core
+      # Browsertests mogen in CI niet stilletjes overslaan: een test die niet draait bewijst niets.
+      - run: npm test
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+          BROWSERTESTS_VERPLICHT: '1'
