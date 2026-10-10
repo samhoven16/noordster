@@ -153,10 +153,46 @@ Open in de ledger en relevant voor Fase 1: F-ACC-005 (voorbelasting zonder bewij
 4. **Taken:** mag ik na jouw akkoord in Fase 1 de 12 koppelingen per taak terugbrengen tot wat elke taak nodig heeft, en de nachtrondes na vannacht uitzetten? Vannacht raak ik niets aan. Hevy-sleutel vernieuwen blijft jouw stap.
 5. **AVG:** de SEPA-QR lokaal laten genereren zodat IBAN en bedrag niet naar een derde gaan? Mijn advies: ja, maar het is een productkeuze.
 
+## 9b. Fase 0b: wat de artifact en de database laten zien (gelezen op 10 okt 2026)
+
+Gelezen: de artifact (140.533 bytes, 1.441 regels; ik las de uitvoer tot het begin van de composer-code, dus niet elke regel) en alle 23 documenten in de database (`plan` 8, `nachtlog` 2, `pipeline` 3, `outreach` 8, `geheugen` 2). Outreach-inhoud (namen) heb ik niet overgenomen.
+
+**Correcties op het document**
+- De artifact is **137 KB, niet "bijna 1 MB"**. Eis "onder 1 MB" is ruim gehaald. De database heeft 23 documenten, niet 61.
+- De artifact mag via koppelingen alleen: `fire_trigger` (Claude Code Remote), `create_event` en `list_events` (Agenda), `search_threads` (Gmail), `search_files` (Drive), `notion-search`. Ze kan zelf dus **geen mail sturen**. Het gat zit alleen in de cloud-taken.
+- De poort in de artifact (`PENDING_HUMAN_AUTH` → klik → `AUTHORIZED` → werker) werkt zoals beschreven en laat de echte inhoud zien. Drie taken staan in `pipeline`, alle drie goedgekeurd en gestart. Zwak punt: de werker krijgt de nonce in tekst en wordt alleen in zijn prompt gevraagd die te controleren; er is geen harde controle.
+- Het startpakket "staat bij Sam" (`plan/definitie-klaar.startpakket`). In de repo stond het niet; een deel is nu gebouwd (zie §11).
+
+**Nieuwe bevinding N-12 (regels spreken elkaar tegen)**
+- `plan/audit.regel` zegt: rondes mogen **niet** zelf rondes of schema's aanmaken. `plan/masterplan.zelfverbetering` en de prompt van ronde 11 staan het wel toe (3 extra rondes). Ook het tijdvak verschilt (plan: 05:03–06:03Z, taak: 06:03–08:03Z, alleen vóór 05:45Z).
+- Het masterplan staat ook toe dat rondes `update_trigger` op latere rondes doen. Dat is de zelfwijziging uit audit punt 1.
+
+**Gevolgen van jouw antwoorden**
+- **20.000 klanten in twee jaar** maakt de "volume-gated" backlog van Boekhoudbaar echt: F-SCALE-336/337/338 bijten volgens het ledger bij ±5.000 rijen/klanten. De licentieserver is één Google Sheet in één Apps Script. Brevo is op de gratis laag 300 mails per dag (`RUNBOOK.md` §5). Dit moet vóór klant 5.000 opgelost zijn, niet erna.
+- **"Vrijwel zonder mensen"**: de fiscale constanten en de adviesmodellering hangen nu nog aan een menselijke adviseur (F-TAX-111/112/331/332). Dat blijft een jaarlijkse menselijke stap (L5/L10).
+- **Module binnen Noordster**: Boekhoudbaar krijgt geen eigen kernel, maar leunt op de Noordster-poort, het constanten-register en de bug-klassen. Fase 2 ontwerp ik daarop.
+- **Alle schedules aanpassen mag**: vannacht laat ik de rondes lopen (jouw eerdere besluit). Morgenochtend reorganiseer ik. Beperking: `update_trigger` kan de koppelingen van een bestaande taak niet wijzigen; dat kan alleen door een taak opnieuw aan te maken met een kleine lijst koppelingen.
+
 ## 10. Einde fase 0
 
 - **Af:** kaart, uitgaande kanalen, afhankelijkheden, stromen, register voor Noordster, nieuwe bevindingen voor Boekhoudbaar.
 - **Bewezen:** 3.294 tests groen; lint 0 fouten; 19 taken en hun rechten; de €4,51/€4,52-afwijking.
 - **Open:** cockpit-schema's en artifact-inhoud (niet gelezen); `src/*.gs` niet regel voor regel gelezen; plugin-tests niet gedraaid; AVG-tekst niet gecontroleerd; `npm audit` niet beoordeeld.
 - **Nodig van Sam:** antwoord op de vijf vragen en akkoord voor Fase 1. Zonder akkoord begin ik er niet aan.
-- **Voorstel Fase 1-volgorde voor Noordster** (volgt het protocol; pas na akkoord): (1) constanten-register met verloopvlag, (2) noodpad dat alle taken veilig stopt of alleen-lezen zet, (3) goedkeuringspoort als hook met test, (4) geheimenscan op taak-prompts, (5) één geheugenbron. Punt 1 en 2 staan al bovenaan de backlog in het document.
+- **Akkoord van Sam is er** (10 okt, antwoorden op de vijf vragen). Fase 1 is gestart, zie §11.
+- **Fase 1-volgorde voor Noordster** (volgt het protocol): (1) constanten-register met verloopvlag, (2) noodpad dat alle taken veilig stopt of alleen-lezen zet, (3) goedkeuringspoort als hook met test, (4) geheimenscan op taak-prompts, (5) één geheugenbron. Punt 1 en 2 staan al bovenaan de backlog in het document.
+
+## 11. Fase 1: stand na de eerste ronde (10 okt 2026)
+
+Gebouwd en getest (`npm test`: 14 tests groen; mutatiecheck: poort kapotmaken laat 8 tests falen, verloopvlag weghalen laat 1 test falen):
+- `CLAUDE.md` (33 regels): missie, 10 harde regels, de 12 lessen.
+- `memory/constanten.json` + `scripts/constanten-check.mjs`: vier constanten met bron, jaar en status. **Alle vier staan op "ongecontroleerd"**: belastingdienst.nl en ondernemersplein.overheid.nl zijn vanuit deze omgeving niet bereikbaar. Verloopvlag getest (in 2027 faalt de aftrek van 2026).
+- `.claude/hooks/gate.mjs` + `.claude/settings.json`: schrijfacties via Gmail, Agenda, Drive, Notion, Zapier, Brevo, Docs, Canva, Figma, Base44, Cloudflare en Claude Code Remote wachten op goedkeuring met een id (`--keur <id>`). Onbekende werkwoorden worden geblokkeerd. Noodstop (`--noodstop`) blokkeert alles behalve lezen.
+- `.claude/skills/noodstop/SKILL.md`: zet de poort dicht en alle Noordster-taken uit, met een lijst om terug te zetten.
+- `memory/klassen.md` (12 klassen) en `docs/skillkaart.md`.
+
+Eerlijke grenzen:
+- De poort werkt alleen in sessies die in deze repo draaien. De 19 cloud-taken lopen er nog langs (N-1 blijft deels open).
+- Een agent kan de goedkeuringsfile in principe nog via een shell-commando schrijven. `settings.json` weigert Edit/Write en vraagt bevestiging voor `--keur`, maar echte afdwinging vraagt dat de goedkeuring buiten bereik van de agent ligt (de klik in de cockpit). Dat is de volgende stap.
+- Ik heb de hook getest met het formaat van de invoer zoals ik het ken (`tool_name`, `tool_input`); in een echte Claude Code-sessie met dit `settings.json` heb ik hem nog niet laten afgaan.
+- Niet aangeraakt: de 19 cloud-taken, de Hevy-sleutel in de prompt van Lichaamsanalyse, de artifact.
