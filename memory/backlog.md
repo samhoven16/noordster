@@ -4,6 +4,7 @@ Rollen per weekdag: ma QA, di beveiliging, wo kosten en snelheid, do UX, vr data
 
 | Prio | ID | Wat | Rol | Bron |
 |---|---|---|---|---|
+| hoog | U-1 | Kaart "Wat is nieuw" op Nexus: toont per dag wat de engineer veranderde (uit `memory/taken-log.md`, via db `lichaam`-achtig doc `systeem/nieuw`), zodat Sam het effect ziet zonder te vragen | UX | Sam 10 okt: effect niet voelbaar |
 | hoog | C-1 | Echte chat in de nieuwe cockpit 5 minuten testen (JSON-uitvoer, tools, team, toestemmingen). Alleen Sam kan dit; daarna bugs hier | QA | fase0 §2 |
 | hoog | N-2 | Hevy: Sam vernieuwt de sleutel (hij stond in de chat) en zet hem als geheim `HEVY_API_KEY` in de omgeving. Daarna eerste echte run van `node scripts/hevy.mjs` en de uitkomst naar db `lichaam/hevy` (client, analyse en kamer staan klaar en zijn getest met nep-antwoorden; echte API nog niet geprobeerd) | beveiliging | fase0 N-2 |
 | midden | H-2 | Hevy schrijven (routines aanpassen) alleen als voorstel via de poort: Sportwetenschapper stelt voor, Criticus toetst, Sam klikt. Niet gebouwd, `scripts/hevy.mjs` kan bewust alleen lezen | UX | Hevy-opdracht |
