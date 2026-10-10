@@ -1,0 +1,45 @@
+{
+  "_regel": "Elke constante heeft bron_url, geldig_jaar (of null als de wet geen jaar kent) en status. Status 'bevestigd' mag alleen met geverifieerd_op. Een constante waarvan geldig_jaar voorbij is, laat de check falen (zichtbare vlag, L6). Wijzig alleen na controle bij de bron.",
+  "constanten": [
+    {
+      "id": "urencriterium",
+      "waarde": 1225,
+      "eenheid": "uren per jaar",
+      "geldig_jaar": null,
+      "bron_url": "https://wetten.overheid.nl/BWBR0011353/",
+      "geverifieerd_op": null,
+      "status": "ongecontroleerd",
+      "opmerking": "Art. 3.6 Wet IB 2001. Bron kon in sessie van 10 okt 2026 niet worden geopend (netwerk). Eerst bevestigen, dan status op bevestigd."
+    },
+    {
+      "id": "zelfstandigenaftrek_2026",
+      "waarde": 1200,
+      "eenheid": "euro",
+      "geldig_jaar": 2026,
+      "bron_url": "https://ondernemersplein.overheid.nl/zelfstandigenaftrek/",
+      "geverifieerd_op": null,
+      "status": "ongecontroleerd",
+      "opmerking": "Boekhoudbaar heeft 2026 al bron-geverifieerd (BELASTING_META, 2026-04-15, ledger F-TAX-110). Dat telt hier als aanwijzing, niet als bevestiging."
+    },
+    {
+      "id": "zelfstandigenaftrek_2027",
+      "waarde": 900,
+      "eenheid": "euro",
+      "geldig_jaar": 2027,
+      "bron_url": "https://ondernemersplein.overheid.nl/zelfstandigenaftrek/",
+      "geverifieerd_op": null,
+      "status": "ongecontroleerd",
+      "opmerking": "Waarde uit het Missie-doc. Nog niet bij de bron gezien."
+    },
+    {
+      "id": "btw_hoog_tarief",
+      "waarde": 0.21,
+      "eenheid": "fractie",
+      "geldig_jaar": null,
+      "bron_url": "https://wetten.overheid.nl/BWBR0002629/",
+      "geverifieerd_op": null,
+      "status": "ongecontroleerd",
+      "opmerking": "Wet OB 1968. De cockpit gebruikt 21% van omzet als btw-reserve; dat is een ruwe richtwaarde (geen aftrek van voorbelasting, geen 9%)."
+    }
+  ]
+}

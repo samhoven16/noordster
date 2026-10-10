@@ -1,0 +1,21 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      { "matcher": "mcp__.*", "hooks": [ { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/gate.mjs\"" } ] }
+    ]
+  },
+  "permissions": {
+    "deny": [
+      "Edit(memory/goedkeuringen.json)",
+      "Write(memory/goedkeuringen.json)",
+      "Edit(.claude/hooks/**)",
+      "Write(.claude/hooks/**)",
+      "Edit(.claude/settings.json)",
+      "Write(.claude/settings.json)"
+    ],
+    "ask": [
+      "Bash(node .claude/hooks/gate.mjs --keur*)",
+      "Bash(node .claude/hooks/gate.mjs --hervat*)"
+    ]
+  }
+}
