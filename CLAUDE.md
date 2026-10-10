@@ -38,6 +38,7 @@ L1 sluit klassen, niet instanties (contracttest, chokepoint of onmogelijk door o
 - Boekhoudbaar staat geparkeerd (Sam, 10 okt): geen werk in `boekhouding-engine` tot Sam het weer opent. Items staan onderaan `memory/backlog.md`.
 
 ## Waar staat wat
+- Voorbeeldcockpit met verzonnen gegevens (om het ontwerp te beoordelen): https://claude.ai/artifact/TWX9uzBSczagm9bemu7AM4, gemaakt met `scripts/demo.mjs`, test `tests/demo.test.mjs`.
 - Besluit over taal en motor, met bronnen: `docs/besluit-stack.md` (TypeScript hoofdtaal, Agent SDK als motor).
 - Jarvis (lokale Python-app met echte modelkeuze per vraag, alleen lezen): `jarvis/`, uitleg in `jarvis/README.md`, test `npm run test:jarvis`.
 - Overdracht met de gewone Claude-chat: `docs/overdracht.md`. Elke sessie eindigt met één zin: wat werkt nu zichtbaar, en wat is de volgende stap.

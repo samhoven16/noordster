@@ -7,6 +7,7 @@
 - **Waar gebouwd wordt: Claude Code**, repo `samhoven16/noordster`, branch `main`. De chat is voor onderzoek, plannen en vragen.
 - **Router**: de cockpit kiest per vraag Snel, Standaard of Zwaar en toont waarom in het antwoord (`routeTask` in `cockpit/index.html`, getest). Zwaar bij grote vragen en bij analyse door Fiscalist, Trader, Risk of Sportwetenschapper; snel bij dag loggen en korte vragen.
 - **Jarvis v0** (`jarvis/`): lokale Python-app die per vraag een echt model kiest (Haiku, Sonnet of Opus uit `jarvis/modellen.json`). Alleen lezen. Nog niet op Sams laptop gedraaid.
+- **Voorbeeldcockpit** (alles verzonnen, aparte artifact met eigen lege database, nooit je echte gegevens): https://claude.ai/artifact/TWX9uzBSczagm9bemu7AM4. Opnieuw maken: `node scripts/demo.mjs <map>`.
 - **Boekhoudbaar is geparkeerd** (10 okt). Eén bouwplek: Claude Code in deze repo. Chat is voor onderzoek. Blauwdrukken van Copilot, ChatGPT en anderen zijn inspiratie; nooit een repo laten aanmaken of iets bevestigen vanuit zo'n tool.
 - **Hevy**: alleen lezen (`scripts/hevy.mjs`). Sleutel alleen als omgevingsvariabele `HEVY_API_KEY`, nooit in een chat of bestand. Echte aanroep nog niet gedaan.
 - **Boekhoudbaar** is een module binnen Noordster; code in repo `boekhouding-engine`.
