@@ -413,7 +413,7 @@ var ATLAS=[
  ["training","Training en herstel"],["koken","Voeding en koken"],["gitaar","Gitaar en muziek"],["leren","Leren leren"]
 ];
 var WERKER="trig_018tCG2igLgzhon85xuTD7zK";
-var S={days:{},geld:[],pijp:{},atlas:{},cfg:{bedrag:10000,maat:"omzet"},db:null,sel:"inkomen",sc:{},ctx:"algemeen",menu:null,notes:[],outreach:[],toets:false,mem:[],bouw:[],pipe:[]};
+var S={days:{},geld:[],pijp:{},atlas:{},cfg:{bedrag:10000,maat:"omzet"},db:null,sel:"inkomen",sc:{},ctx:"algemeen",menu:null,hevy:null,notes:[],outreach:[],toets:false,mem:[],bouw:[],pipe:[]};
 S.menuHist={};S.view="nexus";S.agent=null;S.bus=[];S.brief={};var SESSION=Date.now();S.compact={tot:0};S.lijst=null;var compBusy=false;
 var M=[],LOCAL={},THUMBS={},UNDO={},DONE={},files=[],busy=false,ctl=null,sampleFn=null,limits=null,CODEBUSY={};
 
@@ -998,7 +998,15 @@ function renderDetail(P,k){
   }else if(d.k==="lichaam"){
     var st2=el("div","stats");st2.appendChild(stat("Getraind, 7d",cnt(w,"trainde")+" van 4"));var en=avg(w,"energie");st2.appendChild(stat("Energie gem.",en==null?"–":en.toFixed(1)));P.appendChild(st2);
     P.appendChild(el("div","sec","Energie, 14 dagen"));spk("energie");
-    P.appendChild(el("p","dnote","De volgende lichaamsanalyse uit Hevy staat gepland op 5 november. Het blok is variabel van lengte: de analyse beslist dat, niet de kalender."));
+    var hv=S.hevy;
+    if(hv&&Array.isArray(hv.sessies_per_week)){
+      var sh=el("div","stats");sh.appendChild(stat("Hevy, 7d",String(num(hv.sessies_per_week[0]))+" sessies"));sh.appendChild(stat("Sinds laatste",hv.dagen_sinds_laatste==null?"–":num(hv.dagen_sinds_laatste)+" d"));P.appendChild(sh);
+      var st=(hv.oefeningen||[]).filter(function(x){return x.trend==="stagneert"||x.trend==="daalt"});
+      P.appendChild(el("div","sec","Hevy, stand "+String(hv.gemaakt||"").slice(5)));
+      var uh=el("ul","list");(hv.oefeningen||[]).slice(0,8).forEach(function(x){var li=el("li");li.appendChild(el("span",null,String(x.naam)));li.appendChild(el("span","m",num(x.laatste_e1rm_kg)+" kg · "+x.trend));uh.appendChild(li)});P.appendChild(uh);
+      if(st.length)P.appendChild(el("p","dnote","Let op: "+st.map(function(x){return x.naam}).join(", ")+". Vraag de Sportwetenschapper om een aanpassing; het schema in Hevy wijzigt pas na jouw klik."));
+      P.appendChild(el("p","dnote","e1RM is een schatting uit gewicht en herhalingen (Epley), geen gemeten maximum."));
+    }else P.appendChild(el("p","dnote","Nog geen Hevy-gegevens. Zodra de sleutel als geheim in de omgeving staat, komt de stand hier. De volgende lichaamsanalyse staat gepland op 5 november."));
   }else if(d.k==="voeding"){
     var st3=el("div","stats");st3.appendChild(stat("Zelf gekookt, 7d",cnt(w,"kookte")+" van 5"));st3.appendChild(stat("Dagen gelogd, 7d",String(w.filter(function(x){return x.d}).length)));P.appendChild(st3);
     P.appendChild(el("p","dnote","Elke vrijdag komen vijf korte vragen, elke zaterdag het weekmenu uit de folders van je buurt, als je hebt geantwoord."));
@@ -1827,6 +1835,7 @@ function boot(){
     db.collection("outreach").orderBy("t","desc").limit(100).onSnapshot(function(s){S.outreach=s.docs.map(function(x){var d=x.data();d.id=x.id;return d});renderStream();renderTiles();refreshRoom()},err);
     db.doc("voeding/boodschappen").onSnapshot(function(s){S.lijst=s.exists?s.data():null;refreshRoom()},err);
     db.collection("menuhist").onSnapshot(function(s){var o={};s.docs.forEach(function(x){o[x.id]=x.data()});S.menuHist=o},err);
+    db.doc("lichaam/hevy").onSnapshot(function(s){S.hevy=s.exists?s.data():null;refreshRoom()},err);
     db.doc("voeding/menu").onSnapshot(function(s){S.menu=s.exists?s.data():null;refreshRoom()},err);
     db.collection("pipeline").orderBy("t","desc").limit(30).onSnapshot(function(s){S.pipe=s.docs.map(function(x){return Object.assign({id:x.id},x.data())});renderGate();renderFeed();renderStream();renderTiles()},err);
     db.collection("briefing").orderBy("t","desc").limit(10).onSnapshot(function(s){var o={};s.docs.forEach(function(x){o[x.id]=x.data()});S.brief=o;if(S.view==="nexus")renderVandaag()},err);

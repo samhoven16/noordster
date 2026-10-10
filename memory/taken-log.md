@@ -41,3 +41,6 @@ Proefrun Ochtend: gelukt (briefing en bus-event in de nieuwe cockpit, agenda eer
 Beperkingen die ik tegenkwam (geen omweg gezocht):
 - `create_trigger` kan hier geen koppelingen meegeven. De nieuwe runs hebben dus geen Gmail, Agenda enz. (veiliger), maar de Ochtend kan de agenda niet lezen. Wil je dat, maak de koppeling in de claude.ai-routine-instellingen.
 - Een zelfstandige engineer (sessie of nachttaak die zelf merget of publiceert) werd twee keer geweigerd ("Self-Approval", "Create Unsafe Agents"). Dat vraagt jouw expliciete toestemmingsregel voor `create_session` en `create_trigger`.
+
+## 10 okt: Hevy
+Gebouwd: `scripts/hevy.mjs` (alleen GET, paden op een lijst, paginacap 30, niet precies op xx:00, sleutel nooit in foutmeldingen), 9 tests plus 5 mutaties gevangen, Bio-Forge toont `lichaam/hevy` met stagnatie-melding (2 cockpittests, 1 mutatie gevangen). Niet gedaan: echte API-aanroep, want de sleutel staat nog niet als geheim in de omgeving en mag niet in een prompt of bestand. Schrijven naar Hevy bewust niet gebouwd (H-2).

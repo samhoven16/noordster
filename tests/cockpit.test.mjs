@@ -135,3 +135,25 @@ test('briefing van de run staat op Nexus en weekmenu en lijst worden pas na een 
   assert.equal(lijst.items[0].t, 'linzen')
   await ctx.close()
 })
+
+test('Bio-Forge toont de Hevy-stand uit de database en markeert stagnatie', { skip }, async () => {
+  const hevy = { bron: 'Hevy', gemaakt: '2026-10-10', sessies_per_week: [3, 2, 0, 1], volume_kg_per_week: [9000, 7000, 0, 3000], dagen_sinds_laatste: 1,
+    oefeningen: [{ naam: 'Bankdrukken', sessies: 6, laatste_e1rm_kg: 76, beste_e1rm_kg: 80, trend: 'stagneert' }, { naam: 'Squat', sessies: 5, laatste_e1rm_kg: 110, beste_e1rm_kg: 110, trend: 'stijgt' }] }
+  const { page, ctx, errors } = await open(1440, 900, { 'lichaam/hevy': hevy })
+  await page.click('#navList .ni >> text=Bio-Forge'); await page.waitForTimeout(400)
+  const tekst = await page.locator('body').innerText()
+  assert.match(tekst, /3 sessies/)
+  assert.match(tekst, /Bankdrukken[\s\S]*76 kg · stagneert/)
+  assert.match(tekst, /Let op: Bankdrukken\./)
+  assert.doesNotMatch(tekst, /Let op: .*Squat/)
+  assert.deepEqual(errors, [])
+  await ctx.close()
+})
+
+test('Bio-Forge zonder Hevy-gegevens zegt dat eerlijk en crasht niet', { skip }, async () => {
+  const { page, ctx, errors } = await open()
+  await page.click('#navList .ni >> text=Bio-Forge'); await page.waitForTimeout(400)
+  assert.match(await page.locator('body').innerText(), /Nog geen Hevy-gegevens/)
+  assert.deepEqual(errors, [])
+  await ctx.close()
+})
