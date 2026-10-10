@@ -1,5 +1,7 @@
 # Plan voor zondag 11 okt: de architectuur stap voor stap
 
+Uitgewerkt per stap in `docs/plan-uitwerking.md`. Jarvis op je MacBook: `docs/macbook.md`.
+
 Doel van de dag: één architectuur waarin elke laag een eigen plek, eigenaar en test heeft. Volgorde = fundering eerst (Fase 1 uit `CLAUDE.md`), features daarna. Audit gebeurt nooit in dezelfde sessie als het bouwen.
 
 ## Stap 0. Wat alleen Sam kan (10 minuten, voor we beginnen)

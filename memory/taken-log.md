@@ -58,3 +58,6 @@ Sam plakte zijn volledige profiel. Opgeslagen in de privé-database van de cockp
 
 ## 10 okt: ronde 3
 U-1 klaar: kaart "Wat is nieuw" op Nexus (db `systeem/nieuw`), artifact v6, 15 cockpit-tests groen, mutatie gevangen. HEVY_API_KEY nog niet gezet; nachtronde 9 staat nog aan.
+
+## 10 okt: plan uitgewerkt
+Plan per stap uitgewerkt (`docs/plan-uitwerking.md`), Mac-installatie (`scripts/mac-installeren.sh`, `docs/macbook.md`, 4 tests, mutatie op sleutellek gevangen). Gevonden: cockpit-router mist de agenda-regel van Jarvis; routine Inspiratie heeft 12 koppelingen; `pipeline` en `pijplijn` zijn twee verschillende collecties. Niet op een Mac gedraaid.
