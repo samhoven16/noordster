@@ -28,6 +28,12 @@ L1 sluit klassen, niet instanties (contracttest, chokepoint of onmogelijk door o
 - Bouw teams als planner, werker, criticus. De criticus is een andere agent in een verse context en heeft het werk niet gemaakt. Maximaal twee lagen diep; elke laag kost tokens.
 - Test: `npm test`. Constanten: `npm run constanten`. Noodstop: skill `noodstop`.
 
+## Engineer-modus (Sam wil alleen nog prompten als hij iets wil weten of nodig heeft)
+- Werk continu op de achtergrond zoals een menselijke engineer in elke rol: ma QA, di beveiliging, wo kosten en snelheid, do UX, vr data en fiscaal, za documentatie en noodpad, zo opschonen. Bron van werk: `memory/backlog.md`.
+- Klein, met test, mutatiecheck, aparte Criticus, draft-PR. Zelf mergen of publiceren alleen met Sams expliciete toestemmingsregel; zonder die regel levert de engineer draft-PR's en publiceert de hoofdsessie.
+- Meld Sam alleen wat hij moet weten of beslissen, in een paar regels. Nooit meldingen voor routine.
+
 ## Waar staat wat
 - `memory/constanten.json` bedragen en jaren met bron. `memory/klassen.md` bug-klassen. `docs/` rapporten.
-- De cockpit is nu een claude.ai-artifact (prototype en specificatie). Boekhoudbaar leeft in repo `boekhouding-engine`; daar geldt zijn eigen `CLAUDE.md`.
+- Cockpit v2 (Nexus): https://claude.ai/artifact/GLRFuueCEuPdSBE95QqucB, bron in `cockpit/index.html`, tests in `tests/cockpit.test.mjs`. De oude cockpit (`cockpit/legacy-v26.html`, artifact NGTV5DkK9jyG8Vcsi5SyLV) is het terugvalpunt. Runs en hun ids: `memory/taken-log.md`.
+- De cockpit is een claude.ai-artifact (prototype en specificatie). Boekhoudbaar leeft in repo `boekhouding-engine`; daar geldt zijn eigen `CLAUDE.md`.

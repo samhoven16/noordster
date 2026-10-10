@@ -196,3 +196,18 @@ Eerlijke grenzen:
 - Een agent kan de goedkeuringsfile in principe nog via een shell-commando schrijven. `settings.json` weigert Edit/Write en vraagt bevestiging voor `--keur`, maar echte afdwinging vraagt dat de goedkeuring buiten bereik van de agent ligt (de klik in de cockpit). Dat is de volgende stap.
 - Ik heb de hook getest met het formaat van de invoer zoals ik het ken (`tool_name`, `tool_input`); in een echte Claude Code-sessie met dit `settings.json` heb ik hem nog niet laten afgaan.
 - Niet aangeraakt: de 19 cloud-taken, de Hevy-sleutel in de prompt van Lichaamsanalyse, de artifact.
+
+## 12. Stand 10 okt 2026, middag (na jouw opdracht "NU beginnen")
+
+**Cockpit v2 "Nexus"** staat live op https://claude.ai/artifact/GLRFuueCEuPdSBE95QqucB (privé, alleen jij). Zes sectoren (Kinetic, Capital, Bio-Forge, Horizon, Leven, Systeem), per sector een team (Planner, Werker, Criticus) met werkers die je rechtstreeks aanklikt (Trader, Chef, Trainer, Foundry voor Boekhoudbaar, enz.), een kamer per sector met cijfers, volgende stap en de bestaande panelen, de goedkeuringspoort rechts, een live-stroom van echte gebeurtenissen, en een briefing-kaart op Nexus. Op telefoon: tabs onderin. Bron in git (`cockpit/index.html`); de oude cockpit staat als terugvalpunt in `cockpit/legacy-v26.html`. Alle 60 documenten uit de oude database zijn overgezet.
+
+**Tests:** 10 cockpit-tests (nagebootste runtime) + 14 andere, allemaal groen. Vier bewust gemaakte fouten (criticus uit, poort laat direct door, focusregel weg, afwijkende constante) worden door de tests gevangen.
+
+**Taken:** zie `memory/taken-log.md`. 12 oude taken uit, 3 nieuwe runs aan (Ochtend 06:45, Avond 21:28, Week zondag 18:52). De proefrun van de Ochtend schreef een briefing met echte data. Maandag 12 okt om 06:45 draait de eerste echte Ochtend-run, dus om 08:00 staat de briefing er.
+
+**Wat ik niet kon of mocht (geen omweg gezocht):**
+1. Nachtronde 9 uitzetten werd geweigerd; hij doet volgens zijn eigen prompt alleen testen en loggen zolang ronde 8 niet gelogd is.
+2. Koppelingen per taak beperken kan hier niet. Nieuwe runs hebben daardoor geen koppelingen (veiliger), maar de Ochtend kan de agenda niet lezen. Koppel Agenda in de routine-instellingen als je dat wilt.
+3. Een zelfstandige engineer (sessie of nachttaak die zelf merget en publiceert) werd twee keer geweigerd. Zonder jouw toestemmingsregel draai ik de engineer-rol vanuit deze sessie met geplande wake-ups.
+4. De Hevy-sleutel moet jij vernieuwen; dan zet ik de lichaamsanalyse opnieuw op in de Week-run.
+5. De echte chat met Claude in de cockpit is nog niet getest door een mens (de tests gebruiken een nagebootste runtime). 5 minuten door jou.
