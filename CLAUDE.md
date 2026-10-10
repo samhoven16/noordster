@@ -44,5 +44,5 @@ L1 sluit klassen, niet instanties (contracttest, chokepoint of onmogelijk door o
 - Overdracht met de gewone Claude-chat: `docs/overdracht.md`. Elke sessie eindigt met één zin: wat werkt nu zichtbaar, en wat is de volgende stap.
 - Hevy (alleen lezen): `scripts/hevy.mjs`, sleutel alleen uit omgevingsvariabele `HEVY_API_KEY`, nooit in een bestand of prompt. Uitkomst staat in db `lichaam/hevy` en in de kamer Bio-Forge.
 - `memory/constanten.json` bedragen en jaren met bron. `memory/klassen.md` bug-klassen. `docs/` rapporten.
-- Cockpit v2 (Nexus): https://claude.ai/artifact/GLRFuueCEuPdSBE95QqucB, bron in `cockpit/index.html`, tests in `tests/cockpit.test.mjs`. De oude cockpit (`cockpit/legacy-v26.html`, artifact NGTV5DkK9jyG8Vcsi5SyLV) is het terugvalpunt. Runs en hun ids: `memory/taken-log.md`.
+- Cockpit v2 (Nexus): https://claude.ai/artifact/GLRFuueCEuPdSBE95QqucB, bron in `nexus/index.html`, tests in `tests/cockpit.test.mjs`. De oude cockpit (`nexus/legacy-v26.html`, artifact NGTV5DkK9jyG8Vcsi5SyLV) is het terugvalpunt. Runs en hun ids: `memory/taken-log.md`.
 - De cockpit is een claude.ai-artifact (prototype en specificatie). Boekhoudbaar leeft in repo `boekhouding-engine`; daar geldt zijn eigen `CLAUDE.md`.

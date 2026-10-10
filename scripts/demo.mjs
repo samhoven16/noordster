@@ -54,7 +54,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const uit = process.argv[2]
   if (!uit) { console.error('Geef een uitmap op'); process.exit(1) }
   mkdirSync(uit, { recursive: true })
-  writeFileSync(join(uit, 'demo.html'), demoHtml(readFileSync(join(hier, '../cockpit/index.html'), 'utf8')))
+  writeFileSync(join(uit, 'demo.html'), demoHtml(readFileSync(join(hier, '../nexus/index.html'), 'utf8')))
   const writes = []
   for (const [pad, data] of Object.entries(demoDocs())) {
     const [col, id] = pad.split('/'), f = join(uit, 'docs', col, id + '.json')
